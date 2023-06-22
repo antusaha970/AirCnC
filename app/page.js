@@ -1,9 +1,5 @@
-import Home from "@components/HomePage/Home/Home";
+import { Home } from "@components";
 
 export default function IndexPage() {
-  return (
-    <>
-      <Home />
-    </>
-  );
+  return <></>;
 }
