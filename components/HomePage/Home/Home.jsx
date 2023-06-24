@@ -1,22 +1,31 @@
 "use client";
 
-import { Typography } from "@mui/material";
-import { increment } from "@redux/slices/counterSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { Box, Container, Stack, Typography } from "@mui/material";
 
 const Home = () => {
-  const counter = useSelector((state) => state.counter);
-  console.log(counter);
-  const dispatch = useDispatch();
   return (
-    <Typography
-      variant="h1"
-      onClick={() => {
-        dispatch(increment());
+    <Container
+      maxWidth="lg"
+      component="section"
+      sx={{
+        my: 2,
       }}
     >
-      {counter.value}
-    </Typography>
+      <Typography
+        variant="h5"
+        component="h1"
+        sx={{
+          fontWeight: "bold",
+        }}
+      >
+        Where do you want to go?
+      </Typography>
+
+      <Stack direction={{ md: "row", sm: "column" }}>
+        <Box flex={1}>flex</Box>
+        <Box flex={2}>flex</Box>
+      </Stack>
+    </Container>
   );
 };
 
