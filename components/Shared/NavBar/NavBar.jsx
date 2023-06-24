@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { MenuOpen } from "@mui/icons-material";
 import {
   Box,
-  ButtonBase,
   Container,
   IconButton,
   Menu,
@@ -36,7 +35,7 @@ const NavBar = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" component="nav">
       <Stack
         direction="row"
         sx={{
@@ -55,10 +54,10 @@ const NavBar = () => {
         <Box display={{ lg: "block", md: "block", sm: "none", xs: "none" }}>
           <Stack direction="row" alignItems="center">
             <Link href="/" className="nav-item">
-              Host your home
+              Host your Home
             </Link>
             <Link href="/" className="nav-item">
-              Host your experience
+              Host your Experience
             </Link>
             <Link href="/" className="nav-item">
               Help

@@ -1,4 +1,5 @@
 import { NavBar } from "@components";
+import ReduxProvider from "@redux/ReduxProvider/ReduxProvider";
 import "@styles/font.css";
 import "@styles/globals.css";
 export const metadata = {
@@ -11,8 +12,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <main>
-          <NavBar />
-          {children}
+          <ReduxProvider>
+            <NavBar />
+            {children}
+          </ReduxProvider>
         </main>
       </body>
     </html>
