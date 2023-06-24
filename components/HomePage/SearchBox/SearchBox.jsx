@@ -31,6 +31,9 @@ import {
   arrivalFormattedDate,
   departureFormattedDate,
 } from "@utils/dateHelper";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addSearchOption } from "@redux/slices/searchSlice";
 
 const SearchBox = () => {
   const [location, setLocation] = useState("");
@@ -41,9 +44,59 @@ const SearchBox = () => {
   const [adults, setAdults] = useState(1);
   const [child, setChild] = useState(0);
   const [babes, setBabes] = useState(0);
+  const dispatch = useDispatch();
 
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
+  };
+
+  const handleSearch = () => {
+    if (!location) {
+      toast.warn("Location is not selected", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      let searchLocation;
+      if (location === "Dhaka") {
+        searchLocation = {
+          location,
+          latLong: "23.8103,90.4125",
+        };
+      } else if (location === "Chottogram") {
+        searchLocation = {
+          location,
+          latLong: "22.3569,91.7832",
+        };
+      } else if (location === "Cox's Bazar") {
+        searchLocation = {
+          location,
+          latLong: "21.4272,92.0058",
+        };
+      }
+      const datesOfAccommodation = {
+        arrivalDate: `${arrivalDate.$d}`,
+        departureDate: `${departureDate.$d}`,
+      };
+      const numberOfGuests = {
+        adults,
+        child,
+        babes,
+      };
+      console.log(datesOfAccommodation);
+      const searchOptionsObject = {
+        searchLocation,
+        datesOfAccommodation,
+        numberOfGuests,
+      };
+      dispatch(addSearchOption(searchOptionsObject));
+    }
   };
   return (
     <Box>
@@ -196,7 +249,7 @@ const SearchBox = () => {
             </AccordionDetails>
           </Accordion>
         </Box>
-        <SearchBoxButton>
+        <SearchBoxButton onClick={handleSearch}>
           <SearchIcon /> Search
         </SearchBoxButton>
       </Stack>
