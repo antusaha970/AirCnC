@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Container, Stack, Typography } from "@mui/material";
+import SearchBox from "../SearchBox/SearchBox";
 
 const Home = () => {
   return (
@@ -16,14 +17,17 @@ const Home = () => {
         component="h1"
         sx={{
           fontWeight: "bold",
+          mb: 3,
         }}
       >
         Where do you want to go?
       </Typography>
 
       <Stack direction={{ md: "row", sm: "column" }}>
-        <Box flex={1}>flex</Box>
-        <Box flex={2}>flex</Box>
+        <Box flex={1}>
+          <SearchBox />
+        </Box>
+        <Box flex={2}></Box>
       </Stack>
     </Container>
   );
