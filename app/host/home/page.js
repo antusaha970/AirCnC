@@ -1,4 +1,8 @@
-import { HostHomeWithOutAuth, PrivateRoute } from "@components";
+import {
+  HostHomeDashBoard,
+  HostHomeWithOutAuth,
+  PrivateRoute,
+} from "@components";
 
 export const metadata = {
   title: "Air CnC || Host your home",
@@ -7,7 +11,7 @@ export const metadata = {
 const HostYourHome = async () => {
   return (
     <PrivateRoute WithOutAuth={HostHomeWithOutAuth}>
-      <h1>HostHome</h1>
+      <HostHomeDashBoard />
     </PrivateRoute>
   );
 };
