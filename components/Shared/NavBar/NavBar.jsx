@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useState } from "react";
 import "./NavBar.css";
 import { SignInButton } from "@components/Styled/Styled";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const LogoText = styled(Typography)`
   font-size: 30px;
@@ -33,7 +34,8 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const { isLoaded, isSignedIn, user } = useUser();
+  console.log(isLoaded, isSignedIn);
   return (
     <Box
       sx={{
@@ -60,16 +62,21 @@ const NavBar = () => {
           </Box>
           <Box display={{ lg: "block", md: "block", sm: "none", xs: "none" }}>
             <Stack direction="row" alignItems="center">
-              <Link href="/" className="nav-item">
+              <Link href="/host/home" className="nav-item">
                 Host your Home
               </Link>
               <Link href="/" className="nav-item">
                 Host your Experience
               </Link>
-              <Link href="/" className="nav-item">
+              <Link href="/sign-up" className="nav-item">
                 Help
               </Link>
-              <SignInButton>Sign Up</SignInButton>
+              {!isSignedIn && (
+                <Link href="/sign-up">
+                  <SignInButton>Sign Up</SignInButton>
+                </Link>
+              )}
+              <UserButton afterSignOutUrl="/" />
             </Stack>
           </Box>
           <Box display={{ lg: "none", md: "none", sm: "block", xs: "block" }}>
@@ -113,7 +120,7 @@ const NavBar = () => {
                   p: 2,
                 }}
               >
-                <Link href="/" className="nav-item">
+                <Link href="/host/home" className="nav-item">
                   Host your home
                 </Link>
                 <Link href="/" className="nav-item">
@@ -125,7 +132,11 @@ const NavBar = () => {
                 <Link href="/" className="nav-item">
                   Login
                 </Link>
-                <SignInButton>Sign Up</SignInButton>
+                {!isSignedIn && (
+                  <Link href="/sign-up">
+                    <SignInButton>Sign Up</SignInButton>
+                  </Link>
+                )}
               </Stack>
             </Menu>
           </Box>
