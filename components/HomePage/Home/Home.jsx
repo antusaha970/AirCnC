@@ -2,8 +2,11 @@
 
 import { Box, Container, Stack, Typography } from "@mui/material";
 import SearchBox from "../SearchBox/SearchBox";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const search = useSelector((state) => state.search);
+  console.log(search);
   return (
     <Container
       maxWidth="lg"
@@ -20,7 +23,8 @@ const Home = () => {
           mb: 3,
         }}
       >
-        Where do you want to go?
+        Where do you want to go?{" "}
+        {search?.searchOptions.searchLocation?.location}
       </Typography>
 
       <Stack direction={{ md: "row", sm: "column" }}>

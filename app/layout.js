@@ -1,4 +1,4 @@
-import { NavBar } from "@components";
+import { MuiThemeProvider, NavBar } from "@components";
 import ReduxProvider from "@redux/ReduxProvider/ReduxProvider";
 import "@styles/font.css";
 import "@styles/globals.css";
@@ -13,8 +13,10 @@ export default function RootLayout({ children }) {
       <body>
         <main>
           <ReduxProvider>
-            <NavBar />
-            {children}
+            <MuiThemeProvider>
+              <NavBar />
+              {children}
+            </MuiThemeProvider>
           </ReduxProvider>
         </main>
       </body>
