@@ -1,4 +1,5 @@
 "use client";
+import styled from "@emotion/styled";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import {
   ListItem,
@@ -12,7 +13,13 @@ import Link from "next/link";
 
 const SideBar = () => {
   return (
-    <Stack direction={{ sm: "column", md: "row" }}>
+    <Stack
+      direction={{ sm: "column", md: "row" }}
+      sx={{
+        borderRight: { md: "1px solid gray" },
+        height: { md: "100vh" },
+      }}
+    >
       <Stack
         direction="row"
         sx={{
@@ -32,7 +39,7 @@ const SideBar = () => {
                 <ListItemText
                   primary={menu.title}
                   sx={{
-                    fontSize: "18px",
+                    fontSize: "22px",
                     color: "#000",
                     fontWeight: "bold",
                   }}
