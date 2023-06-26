@@ -1,10 +1,55 @@
 "use client";
-import { Container, Typography } from "@mui/material";
+import { Box, Button, Container, Fade, Modal, Typography } from "@mui/material";
 import Link from "next/link";
+import { useState } from "react";
+import Backdrop from "@mui/material/Backdrop";
+import { SignIn } from "@clerk/nextjs";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "#fff",
+  boxShadow: 24,
+  p: 1,
+};
 const HostHomeWithOutAuth = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Container maxWidth="lg">
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <SignIn
+              afterSignInUrl="/host/view/profile"
+              redirectUrl="/host/view/profile"
+              path="/host/view/hosting"
+              appearance={{
+                elements: {
+                  card: {
+                    boxShadow: "none",
+                  },
+                },
+              }}
+            />
+          </Box>
+        </Fade>
+      </Modal>
       <Typography
         variant="h5"
         component="h5"
@@ -32,7 +77,7 @@ const HostHomeWithOutAuth = () => {
         to cater to your desires.
       </Typography>
       <Typography
-        variant="h2"
+        variant="h4"
         component="p"
         sx={{
           textAlign: "center",
@@ -40,7 +85,8 @@ const HostHomeWithOutAuth = () => {
           fontWeight: "bold",
         }}
       >
-        Please <Link href="/sign-in">Sign In</Link> for hosting your home
+        Please <Button onClick={handleOpen}>Sign In</Button> for hosting your
+        home
       </Typography>
     </Container>
   );

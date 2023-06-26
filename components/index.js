@@ -8,3 +8,5 @@ export { default as Loader } from "./Shared/Loader/Loader";
 export { default as HostHomeWithOutAuth } from "./HostHomePage/HostHomeWithOutAuth/HostHomeWithOutAuth";
 export { default as HostHomeDashBoard } from "./HostHomePage/HostHomeDashBoard/HostHomeDashBoard";
 export { default as SideBar } from "./HostHomePage/SideBar/SideBar";
+export { default as HostHomeTitle } from "./HostHomePage/HostHomeTitle/HostHomeTitle";
+export { default as HostHomeForm } from "./HostHomePage/HostHomeForm/HostHomeForm";
