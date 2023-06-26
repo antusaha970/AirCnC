@@ -4,7 +4,10 @@ import { AuthWarper } from "@components";
 export default function Page() {
   return (
     <AuthWarper>
-      <SignUp afterSignUpUrl="/host/home" redirectUrl="/host/home" />
+      <SignUp
+        afterSignUpUrl="/host/view/profile"
+        redirectUrl="/host/view/profile"
+      />
     </AuthWarper>
   );
 }

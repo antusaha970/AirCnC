@@ -34,8 +34,7 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { isLoaded, isSignedIn, user } = useUser();
-  console.log(isLoaded, isSignedIn);
+  const { isLoaded, isSignedIn } = useUser();
   return (
     <Box
       sx={{
@@ -68,7 +67,7 @@ const NavBar = () => {
               <Link href="/" className="nav-item">
                 Host your Experience
               </Link>
-              <Link href="/sign-up" className="nav-item">
+              <Link href="/" className="nav-item">
                 Help
               </Link>
               {!isSignedIn && (
@@ -76,7 +75,13 @@ const NavBar = () => {
                   <SignInButton>Sign Up</SignInButton>
                 </Link>
               )}
-              <UserButton afterSignOutUrl="/" />
+              <Box
+                sx={{
+                  pl: 1,
+                }}
+              >
+                <UserButton afterSignOutUrl="/" />
+              </Box>
             </Stack>
           </Box>
           <Box display={{ lg: "none", md: "none", sm: "block", xs: "block" }}>
@@ -129,14 +134,18 @@ const NavBar = () => {
                 <Link href="/" className="nav-item">
                   Help
                 </Link>
-                <Link href="/" className="nav-item">
-                  Login
-                </Link>
                 {!isSignedIn && (
                   <Link href="/sign-up">
                     <SignInButton>Sign Up</SignInButton>
                   </Link>
                 )}
+                <Box
+                  sx={{
+                    pl: 1,
+                  }}
+                >
+                  <UserButton afterSignOutUrl="/" />
+                </Box>
               </Stack>
             </Menu>
           </Box>

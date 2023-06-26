@@ -7,7 +7,10 @@ export const metadata = {
 export default function Page() {
   return (
     <AuthWarper>
-      <SignIn afterSignInUrl="/host/home" redirectUrl="/host/home" />
+      <SignIn
+        afterSignInUrl="/host/view/profile"
+        redirectUrl="/host/view/profile"
+      />
     </AuthWarper>
   );
 }
