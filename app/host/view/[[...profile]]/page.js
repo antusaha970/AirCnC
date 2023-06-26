@@ -1,6 +1,7 @@
 import { UserProfile } from "@clerk/nextjs";
-import React from "react";
-
+export const metadata = {
+  title: "Air CnC || Your profile",
+};
 const page = () => {
   return (
     <div

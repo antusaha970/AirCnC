@@ -61,7 +61,11 @@ const NavBar = () => {
           </Box>
           <Box display={{ lg: "block", md: "block", sm: "none", xs: "none" }}>
             <Stack direction="row" alignItems="center">
-              <Link href="/host/home" className="nav-item">
+              <Link
+                href="/host/view/hosting"
+                className="nav-item"
+                prefetch={false}
+              >
                 Host your Home
               </Link>
               <Link href="/" className="nav-item">
@@ -125,7 +129,11 @@ const NavBar = () => {
                   p: 2,
                 }}
               >
-                <Link href="/host/home" className="nav-item">
+                <Link
+                  href="/host/view/hosting"
+                  className="nav-item"
+                  prefetch={false}
+                >
                   Host your home
                 </Link>
                 <Link href="/" className="nav-item">
