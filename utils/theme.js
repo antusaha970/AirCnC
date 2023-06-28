@@ -1,6 +1,15 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  // To change palette colors
+  palette: {
+    primary: {
+      light: "#81e7af",
+      main: "#2bde8d",
+      dark: "#00ca5c",
+      contrastText: "#b6f1cf",
+    },
+  },
   components: {
     // Name of the component
     MuiTypography: {
