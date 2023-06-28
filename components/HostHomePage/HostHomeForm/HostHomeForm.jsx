@@ -1,15 +1,23 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Box, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 
+const arrayOfInputs = [
+  "placeTitle",
+  "location",
+  "description",
+  "additionalDescription",
+];
 const HostHomeForm = () => {
   const { user } = useUser();
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      firstName: "",
-      select: {},
+      placeTitle: "",
+      location: "",
+      description: "",
+      additionalDescription: "",
     },
   });
   const onSubmit = (data) => console.log(data);
@@ -28,19 +36,26 @@ const HostHomeForm = () => {
           margin: "auto",
         }}
       >
-        <Controller
-          name="firstName"
-          control={control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label="fullWidth"
-              id="fullWidth"
-            />
-          )}
-        />
+        {arrayOfInputs.map((input, id) => (
+          <Controller
+            key={input}
+            name={input}
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={`Enter ${input.toLocaleLowerCase()}`}
+                id={id.toString()}
+                margin="normal"
+              />
+            )}
+          />
+        ))}
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
       </Box>
     </Box>
   );
