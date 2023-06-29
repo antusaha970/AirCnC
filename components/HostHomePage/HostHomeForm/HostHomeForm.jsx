@@ -7,11 +7,8 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  FormLabel,
   InputAdornment,
   Radio,
-  RadioGroup,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -43,12 +40,6 @@ const HostHomeForm = () => {
     },
   });
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size.toLocaleString()} bytes
-    </li>
-  ));
 
   const [images, setImages] = useState([]);
 
@@ -91,8 +82,9 @@ const HostHomeForm = () => {
   const onSubmit = async (data) => {
     if (acceptedFiles.length >= 2) {
       try {
-        const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
-        const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
+        // const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
+        // const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
+        console.log(data);
       } catch (error) {}
     } else {
       alert("Please select at least two images");
@@ -380,9 +372,32 @@ const HostHomeForm = () => {
             }}
           >
             <h4>Your selected images</h4>
-            <ul>{files}</ul>
+            <ul>
+              {acceptedFiles.map((file) => (
+                <li key={file.path}>
+                  {file.path} - {file.size.toLocaleString()} bytes
+                </li>
+              ))}
+            </ul>
           </Box>
         </Box>
+        <Controller
+          name="additionalDescription"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              color="primary"
+              fullWidth
+              label={"Full details of your home"}
+              id="titles"
+              margin="normal"
+              multiline
+              rows={5}
+            />
+          )}
+        />
         <Button variant="contained" type="submit">
           Submit
         </Button>
