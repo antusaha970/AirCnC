@@ -8,7 +8,10 @@ import {
   FormControl,
   FormControlLabel,
   InputAdornment,
+  InputLabel,
+  MenuItem,
   Radio,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -110,7 +113,7 @@ const HostHomeForm = () => {
     <Box
       sx={{
         marginLeft: { md: "50px", sm: 0 },
-        mt: 2,
+        my: 2,
       }}
     >
       <ToastContainer />
@@ -158,16 +161,36 @@ const HostHomeForm = () => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter your place location"}
-              id="titles"
-              margin="normal"
-            />
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Location</InputLabel>
+              <Select
+                {...field}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Location"
+              >
+                <MenuItem value="Dhaka,Bangladesh">Dhaka, Bangladesh</MenuItem>
+                <MenuItem value="Chottogram,Bangladesh">
+                  Chottogram, Bangladesh
+                </MenuItem>
+                <MenuItem value="Cox's Bazar,Bangladesh">
+                  Cox&apos;s Bazar, Bangladesh
+                </MenuItem>
+              </Select>
+            </FormControl>
           )}
         />
+        {errors.location && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Please select your location
+          </Typography>
+        )}
         <Controller
           name="description"
           control={control}
@@ -475,31 +498,6 @@ const HostHomeForm = () => {
             Must be less than 10 dollars
           </Typography>
         )}
-        <FormControl fullWidth>
-          <Controller
-            name="entireHome"
-            control={control}
-            render={({ field }) => (
-              <FormControlLabel
-                {...field}
-                control={<Radio />}
-                label="Entire Home"
-              />
-            )}
-          />
-          <Controller
-            name="selfCheckIn"
-            control={control}
-            render={({ field }) => (
-              <FormControlLabel
-                {...field}
-                value="true"
-                control={<Radio />}
-                label="Self check in"
-              />
-            )}
-          />
-        </FormControl>
         <Box
           sx={{
             width: "100%",
