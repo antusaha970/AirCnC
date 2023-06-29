@@ -23,6 +23,7 @@ import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import axios from "axios";
 
 const apiKey = "bccff53654f10f82c9c8a2ba645ab87a";
 const HostHomeForm = () => {
@@ -50,11 +51,13 @@ const HostHomeForm = () => {
       selfCheckIn: false,
     },
   });
+
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
   const [images, setImages] = useState([]);
 
   const imageToBase64 = (img) => {
+    const isPending = true;
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -62,13 +65,16 @@ const HostHomeForm = () => {
         const img = reader.result.split(",")[1];
         return [...prevImgs, img];
       });
+      isPending = false;
     };
     reader.readAsDataURL(img);
   };
+  console.log(images);
 
   const imagesOnlineUrl = async (arr, ind) => {
     await imageToBase64(arr[ind]);
     const formData = new FormData();
+    console.log(images[ind]);
     formData.append("image", images[ind]);
     try {
       const response = await fetch(
@@ -95,6 +101,7 @@ const HostHomeForm = () => {
       try {
         const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
         const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
+
         const dataForUpload = {
           userId: id,
           userProfile: imageUrl,
@@ -122,7 +129,12 @@ const HostHomeForm = () => {
           },
         };
 
-        console.log(dataForUpload);
+        // console.log(dataForUpload);
+        const response = await axios.post(
+          "/api/order/place-order",
+          dataForUpload
+        );
+        console.log(response);
       } catch (error) {
         console.error(error);
       }
