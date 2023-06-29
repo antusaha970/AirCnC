@@ -54,28 +54,23 @@ const HostHomeForm = () => {
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
-  const [images, setImages] = useState([]);
-
   const imageToBase64 = (img) => {
-    const isPending = true;
-    const reader = new FileReader();
+    const promise = new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setImages((prevImgs) => {
-        const img = reader.result.split(",")[1];
-        return [...prevImgs, img];
-      });
-      isPending = false;
-    };
-    reader.readAsDataURL(img);
+      reader.onloadend = () => {
+        const imgBase64 = reader.result.split(",")[1];
+        resolve(imgBase64);
+      };
+      reader.readAsDataURL(img);
+    });
+
+    return promise;
   };
-  console.log(images);
-
   const imagesOnlineUrl = async (arr, ind) => {
-    await imageToBase64(arr[ind]);
+    const imgbase64 = await imageToBase64(arr[ind]);
     const formData = new FormData();
-    console.log(images[ind]);
-    formData.append("image", images[ind]);
+    formData.append("image", imgbase64);
     try {
       const response = await fetch(
         `https://api.imgbb.com/1/upload?&key=${apiKey}`,
