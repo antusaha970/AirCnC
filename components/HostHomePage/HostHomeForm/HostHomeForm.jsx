@@ -11,13 +11,16 @@ import {
   InputAdornment,
   Radio,
   RadioGroup,
+  Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import { useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 const HostHomeForm = () => {
   const { user } = useUser();
@@ -38,13 +41,17 @@ const HostHomeForm = () => {
       selfCheckIn: false,
     },
   });
-  const [images, setImages] = useState([]);
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
-  const handleChange = (event) => {
-    const files = event.target.files;
-    setImages(files);
-  };
-  console.log(images);
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path}>
+      {file.path} - {file.size.toLocaleString()} bytes
+    </li>
+  ));
+
+  if (acceptedFiles.length > 0) {
+    console.log(acceptedFiles);
+  }
   const onSubmit = (data) => console.log(data);
   return (
     <Box
@@ -292,13 +299,44 @@ const HostHomeForm = () => {
             )}
           />
         </FormControl>
-        <input
-          type="file"
-          multiple
-          placeholder="Enter your place images"
-          accept="image/*"
-          onChange={handleChange}
-        />
+        <Box
+          sx={{
+            width: "100%",
+            height: "250px",
+            border: "3px dashed gray",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            my: 2,
+          }}
+        >
+          <div {...getRootProps({ className: "dropzone" })}>
+            <input {...getInputProps()} />
+            <Typography
+              variant="p"
+              component="p"
+              sx={{
+                textAlign: "center",
+                color: "gray",
+              }}
+            >
+              Drag&apos;n&apos; drop 2 image of your home here, or click to
+              select images
+            </Typography>
+          </div>
+          <Box
+            component="aside"
+            sx={{
+              display: "block",
+              px: 3,
+            }}
+          >
+            <h4>Your selected images</h4>
+            <ul>{files}</ul>
+          </Box>
+        </Box>
         <Button variant="contained" type="submit">
           Submit
         </Button>
