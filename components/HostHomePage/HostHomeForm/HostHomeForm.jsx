@@ -22,6 +22,7 @@ import BathtubIcon from "@mui/icons-material/Bathtub";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
+const apiKey = "bccff53654f10f82c9c8a2ba645ab87a";
 const HostHomeForm = () => {
   const { user } = useUser();
   const { control, handleSubmit } = useForm({
@@ -49,10 +50,55 @@ const HostHomeForm = () => {
     </li>
   ));
 
-  if (acceptedFiles.length > 0) {
-    console.log(acceptedFiles);
-  }
-  const onSubmit = (data) => console.log(data);
+  const [images, setImages] = useState([]);
+
+  const imageToBase64 = (img) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImages((prevImgs) => {
+        const img = reader.result.split(",")[1];
+        return [...prevImgs, img];
+      });
+    };
+    reader.readAsDataURL(img);
+  };
+
+  const imagesOnlineUrl = async (arr, ind) => {
+    imageToBase64(arr[ind]);
+    const formData = new FormData();
+    formData.append("image", images[ind]);
+    try {
+      const response = await fetch(
+        `https://api.imgbb.com/1/upload?&key=${apiKey}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const imgUpLoadRes = await response.json();
+      const {
+        data: {
+          image: { url },
+        },
+      } = imgUpLoadRes;
+      return url;
+    } catch (error) {
+      console.log(error);
+      throw new Error(error);
+    }
+  };
+  const onSubmit = async (data) => {
+    if (acceptedFiles.length >= 2) {
+      try {
+        const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
+        const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
+      } catch (error) {}
+    } else {
+      alert("Please select at least two images");
+    }
+  };
+
   return (
     <Box
       sx={{
