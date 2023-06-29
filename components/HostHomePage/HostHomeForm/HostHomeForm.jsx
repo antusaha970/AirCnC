@@ -26,7 +26,9 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 const apiKey = "bccff53654f10f82c9c8a2ba645ab87a";
 const HostHomeForm = () => {
-  const { user } = useUser();
+  const {
+    user: { imageUrl, id },
+  } = useUser();
   const {
     control,
     handleSubmit,
@@ -65,7 +67,7 @@ const HostHomeForm = () => {
   };
 
   const imagesOnlineUrl = async (arr, ind) => {
-    imageToBase64(arr[ind]);
+    await imageToBase64(arr[ind]);
     const formData = new FormData();
     formData.append("image", images[ind]);
     try {
@@ -84,17 +86,46 @@ const HostHomeForm = () => {
       } = imgUpLoadRes;
       return url;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       throw new Error(error);
     }
   };
   const onSubmit = async (data) => {
     if (acceptedFiles.length >= 2) {
       try {
-        // const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
-        // const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
-        console.log(data);
-      } catch (error) {}
+        const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
+        const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
+        const dataForUpload = {
+          userId: id,
+          userProfile: imageUrl,
+          placeDetails: {
+            images: [imgLink1, imgLink2],
+            placeTitle: data.placeTitle,
+            location: data.location,
+            roomsAndGuest: {
+              guest: Number(data.guest),
+              bedRooms: Number(data.bedRooms),
+              beds: Number(data.beds),
+              bartRoom: Number(data.bartRoom),
+            },
+            description: data.description,
+            additionalDescription: data.additionalDescription,
+            fees: {
+              perNightFees: Number(data.perNightFees),
+              cleaningFees: Number(data.cleaningFees),
+              serviceFees: Number(data.serviceFees),
+            },
+            options: {
+              entireHome: true,
+              selfCheckIn: true,
+            },
+          },
+        };
+
+        console.log(dataForUpload);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       toast.warn("Please select at least two image", {
         position: "top-right",
