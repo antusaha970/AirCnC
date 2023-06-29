@@ -18,11 +18,17 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const apiKey = "bccff53654f10f82c9c8a2ba645ab87a";
 const HostHomeForm = () => {
   const { user } = useUser();
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       placeTitle: "",
       location: "",
@@ -32,7 +38,7 @@ const HostHomeForm = () => {
       bedRooms: 1,
       beds: 1,
       bartRoom: 1,
-      perNightFees: 0,
+      perNightFees: 10,
       cleaningFees: 0,
       serviceFees: 0,
       entireHome: true,
@@ -87,7 +93,16 @@ const HostHomeForm = () => {
         console.log(data);
       } catch (error) {}
     } else {
-      alert("Please select at least two images");
+      toast.warn("Please select at least two image", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -98,6 +113,7 @@ const HostHomeForm = () => {
         mt: 2,
       }}
     >
+      <ToastContainer />
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -109,7 +125,12 @@ const HostHomeForm = () => {
         <Controller
           name="placeTitle"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            minLength: {
+              value: 10,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -121,6 +142,17 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.placeTitle && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Title is required and must be 10 character long
+          </Typography>
+        )}
         <Controller
           name="location"
           control={control}
@@ -139,7 +171,12 @@ const HostHomeForm = () => {
         <Controller
           name="description"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            minLength: {
+              value: 30,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -151,10 +188,26 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.description && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Description is required and must be 30 characters long
+          </Typography>
+        )}
         <Controller
           name="guest"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            min: {
+              value: 1,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -174,10 +227,26 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.guest && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must accept at least one guest
+          </Typography>
+        )}
         <Controller
           name="bedRooms"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            min: {
+              value: 1,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -197,10 +266,26 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.bedRooms && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must have at least one bed room
+          </Typography>
+        )}
         <Controller
           name="beds"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            min: {
+              value: 1,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -220,10 +305,26 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.beds && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must have at least one bed
+          </Typography>
+        )}
         <Controller
           name="bartRoom"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            min: {
+              value: 1,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -243,10 +344,29 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.bartRoom && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must have at least one bathroom
+          </Typography>
+        )}
         <Controller
           name="perNightFees"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            min: {
+              value: 10,
+            },
+            max: {
+              value: 100,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -266,10 +386,26 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.perNightFees && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must be more than 10 dollars and less than 100
+          </Typography>
+        )}
         <Controller
           name="cleaningFees"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            max: {
+              value: 10,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -289,10 +425,26 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.cleaningFees && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must be less than 10 dollars
+          </Typography>
+        )}
         <Controller
           name="serviceFees"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: true,
+            max: {
+              value: 10,
+            },
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -312,6 +464,17 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.serviceFees && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must be less than 10 dollars
+          </Typography>
+        )}
         <FormControl fullWidth>
           <Controller
             name="entireHome"
@@ -358,6 +521,7 @@ const HostHomeForm = () => {
               sx={{
                 textAlign: "center",
                 color: "gray",
+                cursor: "pointer",
               }}
             >
               Drag&apos;n&apos; drop 2 image of your home here, or click to
@@ -398,6 +562,17 @@ const HostHomeForm = () => {
             />
           )}
         />
+        {errors.additionalDescription && (
+          <Typography
+            sx={{
+              color: "red",
+              fontSize: "16px",
+              p: 1,
+            }}
+          >
+            Must have additional description
+          </Typography>
+        )}
         <Button variant="contained" type="submit">
           Submit
         </Button>
