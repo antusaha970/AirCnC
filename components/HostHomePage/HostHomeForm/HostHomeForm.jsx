@@ -73,19 +73,25 @@ const HostHomeForm = () => {
     const formData = new FormData();
     formData.append("image", imgbase64);
     try {
-      const response = await fetch(
+      // const response = await fetch(
+      //   `https://api.imgbb.com/1/upload?&key=${apiKey}`,
+      //   {
+      //     method: "POST",
+      //     body: formData,
+      //   }
+      // );
+      // const imgUpLoadRes = await response.json();
+      const { data } = await axios.post(
         `https://api.imgbb.com/1/upload?&key=${apiKey}`,
-        {
-          method: "POST",
-          body: formData,
-        }
+        formData
       );
-      const imgUpLoadRes = await response.json();
+      console.log(data);
+
       const {
         data: {
           image: { url },
         },
-      } = imgUpLoadRes;
+      } = data;
       return url;
     } catch (error) {
       console.error(error);
