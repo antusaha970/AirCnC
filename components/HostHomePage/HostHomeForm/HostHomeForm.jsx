@@ -22,6 +22,7 @@ import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
+import { useState } from "react";
 
 const apiKey = "bccff53654f10f82c9c8a2ba645ab87a";
 const HostHomeForm = () => {
@@ -32,6 +33,7 @@ const HostHomeForm = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       placeTitle: "",
@@ -49,6 +51,7 @@ const HostHomeForm = () => {
       selfCheckIn: false,
     },
   });
+  const [submitting, setSubmitting] = useState(false);
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
@@ -92,6 +95,7 @@ const HostHomeForm = () => {
   const onSubmit = async (data) => {
     if (acceptedFiles.length >= 2) {
       try {
+        setSubmitting(true);
         const imgLink1 = await imagesOnlineUrl(acceptedFiles, 0);
         const imgLink2 = await imagesOnlineUrl(acceptedFiles, 1);
 
@@ -125,9 +129,33 @@ const HostHomeForm = () => {
           "/api/order/place-order",
           dataForUpload
         );
-        console.log(response);
+        if (response) {
+          toast.success("Your home is added on the AirCnC", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          reset();
+        }
       } catch (error) {
         console.error(error);
+        toast.error("Unexpected error please try again later", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } finally {
+        setSubmitting(false);
       }
     } else {
       toast.warn("Please select at least two image", {
@@ -605,8 +633,8 @@ const HostHomeForm = () => {
             Must have additional description
           </Typography>
         )}
-        <Button variant="contained" type="submit">
-          Submit
+        <Button variant="contained" type={submitting ? "disable" : "submit"}>
+          {submitting ? "Submitting" : "Submit"}
         </Button>
       </Box>
     </Box>
