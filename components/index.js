@@ -5,6 +5,7 @@ export { default as MuiThemeProvider } from "./Shared/MuiThemeProvider/MuiThemeP
 export { default as AuthWarper } from "./Shared/AuthWraper/AuthWarper";
 export { default as PrivateRoute } from "./Shared/PrivateRoute/PrivateRoute";
 export { default as Loader } from "./Shared/Loader/Loader";
+export { default as PlaceCard } from "./Shared/PlaceCard/PlaceCard";
 export { default as HostHomeWithOutAuth } from "./HostHomePage/HostHomeWithOutAuth/HostHomeWithOutAuth";
 export { default as HostHomeDashBoard } from "./HostHomePage/HostHomeDashBoard/HostHomeDashBoard";
 export { default as SideBar } from "./HostHomePage/SideBar/SideBar";

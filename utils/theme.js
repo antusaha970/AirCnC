@@ -9,6 +9,12 @@ const theme = createTheme({
       dark: "#00ca5c",
       contrastText: "#e1faec",
     },
+    danger: {
+      light: "#ff2615",
+      main: "#ed0808",
+      dark: "#d50000",
+      contrastText: "#ffe8e7",
+    },
   },
   components: {
     // Name of the component

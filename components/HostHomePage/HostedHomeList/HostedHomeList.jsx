@@ -1,7 +1,8 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Box, Typography } from "@mui/material";
+import { PlaceCard } from "@components";
+import { Box, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 export const fetchCache = "force-no-store";
@@ -21,11 +22,14 @@ const HostedHomeList = () => {
       }
     }
   }, [id]);
-  console.log(homes);
+
+  const handleDelete = async (id) => {
+    console.log(id);
+  };
   return (
     <Box
       sx={{
-        mx: { sm: 0, md: 3 },
+        mx: { sm: 1, md: 3, xs: 1 },
       }}
     >
       <Typography
@@ -40,6 +44,20 @@ const HostedHomeList = () => {
       >
         Your Hosted Homes
       </Typography>
+
+      <Stack
+        direction={{ md: "row", sm: "column" }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        {homes?.map((place) => (
+          <PlaceCard
+            key={place._id}
+            place={place}
+            handleDelete={handleDelete}
+          />
+        ))}
+      </Stack>
     </Box>
   );
 };
