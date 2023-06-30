@@ -10,3 +10,4 @@ export { default as HostHomeDashBoard } from "./HostHomePage/HostHomeDashBoard/H
 export { default as SideBar } from "./HostHomePage/SideBar/SideBar";
 export { default as HostHomeTitle } from "./HostHomePage/HostHomeTitle/HostHomeTitle";
 export { default as HostHomeForm } from "./HostHomePage/HostHomeForm/HostHomeForm";
+export { default as HostedHomeList } from "./HostHomePage/HostedHomeList/HostedHomeList";

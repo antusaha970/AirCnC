@@ -8,8 +8,8 @@ const dashboardMenu = [
     link: "/host/view/hosting",
   },
   {
-    title: "Orders",
-    link: "/host/view/orders",
+    title: "Your places",
+    link: "/host/view/your-places",
   },
 ];
 

@@ -6,11 +6,9 @@ import {
   Box,
   Button,
   FormControl,
-  FormControlLabel,
   InputAdornment,
   InputLabel,
   MenuItem,
-  Radio,
   Select,
   TextField,
   Typography,
@@ -19,7 +17,7 @@ import { useForm, Controller } from "react-hook-form";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BathtubIcon from "@mui/icons-material/Bathtub";
-import { useState } from "react";
+
 import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -123,8 +121,6 @@ const HostHomeForm = () => {
             },
           },
         };
-
-        // console.log(dataForUpload);
         const response = await axios.post(
           "/api/order/place-order",
           dataForUpload
