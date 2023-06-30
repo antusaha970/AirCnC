@@ -23,6 +23,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import axios from "axios";
 import { useState } from "react";
+import { FormLoader } from "@components";
 
 const apiKey = "bccff53654f10f82c9c8a2ba645ab87a";
 const HostHomeForm = () => {
@@ -73,19 +74,10 @@ const HostHomeForm = () => {
     const formData = new FormData();
     formData.append("image", imgbase64);
     try {
-      // const response = await fetch(
-      //   `https://api.imgbb.com/1/upload?&key=${apiKey}`,
-      //   {
-      //     method: "POST",
-      //     body: formData,
-      //   }
-      // );
-      // const imgUpLoadRes = await response.json();
       const { data } = await axios.post(
         `https://api.imgbb.com/1/upload?&key=${apiKey}`,
         formData
       );
-      console.log(data);
 
       const {
         data: {
@@ -185,464 +177,483 @@ const HostHomeForm = () => {
       }}
     >
       <ToastContainer />
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{
-          width: "90%",
-          margin: "auto",
-        }}
-      >
-        <Controller
-          name="placeTitle"
-          control={control}
-          rules={{
-            required: true,
-            minLength: {
-              value: 10,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter your place title"}
-              id="titles"
-              margin="normal"
-            />
-          )}
-        />
-        {errors.placeTitle && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Title is required and must be 10 character long
-          </Typography>
-        )}
-        <Controller
-          name="location"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Location</InputLabel>
-              <Select
-                {...field}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                label="Location"
-              >
-                <MenuItem value="Dhaka,Bangladesh">Dhaka, Bangladesh</MenuItem>
-                <MenuItem value="Chottogram,Bangladesh">
-                  Chottogram, Bangladesh
-                </MenuItem>
-                <MenuItem value="Cox's Bazar,Bangladesh">
-                  Cox&apos;s Bazar, Bangladesh
-                </MenuItem>
-              </Select>
-            </FormControl>
-          )}
-        />
-        {errors.location && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Please select your location
-          </Typography>
-        )}
-        <Controller
-          name="description"
-          control={control}
-          rules={{
-            required: true,
-            minLength: {
-              value: 30,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Describe your place"}
-              id="titles"
-              margin="normal"
-            />
-          )}
-        />
-        {errors.description && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Description is required and must be 30 characters long
-          </Typography>
-        )}
-        <Controller
-          name="guest"
-          control={control}
-          rules={{
-            required: true,
-            min: {
-              value: 1,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter guest number you want to accept"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.guest && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must accept at least one guest
-          </Typography>
-        )}
-        <Controller
-          name="bedRooms"
-          control={control}
-          rules={{
-            required: true,
-            min: {
-              value: 1,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter number of bedrooms you have"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LocalHotelIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.bedRooms && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must have at least one bed room
-          </Typography>
-        )}
-        <Controller
-          name="beds"
-          control={control}
-          rules={{
-            required: true,
-            min: {
-              value: 1,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter number beds in bedrooms"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LocalHotelIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.beds && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must have at least one bed
-          </Typography>
-        )}
-        <Controller
-          name="bartRoom"
-          control={control}
-          rules={{
-            required: true,
-            min: {
-              value: 1,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter number bathrooms in your house"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <BathtubIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.bartRoom && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must have at least one bathroom
-          </Typography>
-        )}
-        <Controller
-          name="perNightFees"
-          control={control}
-          rules={{
-            required: true,
-            min: {
-              value: 10,
-            },
-            max: {
-              value: 100,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter fare per night"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AttachMoneyIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.perNightFees && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must be more than 10 dollars and less than 100
-          </Typography>
-        )}
-        <Controller
-          name="cleaningFees"
-          control={control}
-          rules={{
-            required: true,
-            max: {
-              value: 10,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter cleaning fees"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AttachMoneyIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.cleaningFees && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must be less than 10 dollars
-          </Typography>
-        )}
-        <Controller
-          name="serviceFees"
-          control={control}
-          rules={{
-            required: true,
-            max: {
-              value: 10,
-            },
-          }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Enter service fees"}
-              id="titles"
-              type="number"
-              margin="normal"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AttachMoneyIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {errors.serviceFees && (
-          <Typography
-            sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
-            }}
-          >
-            Must be less than 10 dollars
-          </Typography>
-        )}
+      {submitting ? (
         <Box
           sx={{
-            width: "100%",
-            height: "250px",
-            border: "3px dashed gray",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            my: 2,
+            height: "80vh",
+            width: "100%",
           }}
         >
-          <div {...getRootProps({ className: "dropzone" })}>
-            <input {...getInputProps()} />
-            <Typography
-              variant="p"
-              component="p"
-              sx={{
-                textAlign: "center",
-                color: "gray",
-                cursor: "pointer",
-              }}
-            >
-              Drag&apos;n&apos; drop 2 image of your home here, or click to
-              select images
-            </Typography>
-          </div>
-          <Box
-            component="aside"
-            sx={{
-              display: "block",
-              px: 3,
-            }}
-          >
-            <h4>Your selected images</h4>
-            <ul>
-              {acceptedFiles.map((file) => (
-                <li key={file.path}>
-                  {file.path} - {file.size.toLocaleString()} bytes
-                </li>
-              ))}
-            </ul>
+          <Box>
+            <FormLoader />
+            <Typography>Uploading...</Typography>
           </Box>
         </Box>
-        <Controller
-          name="additionalDescription"
-          control={control}
-          rules={{ required: true }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              color="primary"
-              fullWidth
-              label={"Full details of your home"}
-              id="titles"
-              margin="normal"
-              multiline
-              rows={5}
-            />
+      ) : (
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{
+            width: "90%",
+            margin: "auto",
+          }}
+        >
+          <Controller
+            name="placeTitle"
+            control={control}
+            rules={{
+              required: true,
+              minLength: {
+                value: 10,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter your place title"}
+                id="titles"
+                margin="normal"
+              />
+            )}
+          />
+          {errors.placeTitle && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Title is required and must be 10 character long
+            </Typography>
           )}
-        />
-        {errors.additionalDescription && (
-          <Typography
+          <Controller
+            name="location"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Location</InputLabel>
+                <Select
+                  {...field}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Location"
+                >
+                  <MenuItem value="Dhaka,Bangladesh">
+                    Dhaka, Bangladesh
+                  </MenuItem>
+                  <MenuItem value="Chottogram,Bangladesh">
+                    Chottogram, Bangladesh
+                  </MenuItem>
+                  <MenuItem value="Cox's Bazar,Bangladesh">
+                    Cox&apos;s Bazar, Bangladesh
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            )}
+          />
+          {errors.location && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Please select your location
+            </Typography>
+          )}
+          <Controller
+            name="description"
+            control={control}
+            rules={{
+              required: true,
+              minLength: {
+                value: 30,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Describe your place"}
+                id="titles"
+                margin="normal"
+              />
+            )}
+          />
+          {errors.description && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Description is required and must be 30 characters long
+            </Typography>
+          )}
+          <Controller
+            name="guest"
+            control={control}
+            rules={{
+              required: true,
+              min: {
+                value: 1,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter guest number you want to accept"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.guest && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must accept at least one guest
+            </Typography>
+          )}
+          <Controller
+            name="bedRooms"
+            control={control}
+            rules={{
+              required: true,
+              min: {
+                value: 1,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter number of bedrooms you have"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocalHotelIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.bedRooms && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must have at least one bed room
+            </Typography>
+          )}
+          <Controller
+            name="beds"
+            control={control}
+            rules={{
+              required: true,
+              min: {
+                value: 1,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter number beds in bedrooms"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocalHotelIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.beds && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must have at least one bed
+            </Typography>
+          )}
+          <Controller
+            name="bartRoom"
+            control={control}
+            rules={{
+              required: true,
+              min: {
+                value: 1,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter number bathrooms in your house"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <BathtubIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.bartRoom && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must have at least one bathroom
+            </Typography>
+          )}
+          <Controller
+            name="perNightFees"
+            control={control}
+            rules={{
+              required: true,
+              min: {
+                value: 10,
+              },
+              max: {
+                value: 100,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter fare per night"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.perNightFees && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must be more than 10 dollars and less than 100
+            </Typography>
+          )}
+          <Controller
+            name="cleaningFees"
+            control={control}
+            rules={{
+              required: true,
+              max: {
+                value: 10,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter cleaning fees"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.cleaningFees && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must be less than 10 dollars
+            </Typography>
+          )}
+          <Controller
+            name="serviceFees"
+            control={control}
+            rules={{
+              required: true,
+              max: {
+                value: 10,
+              },
+            }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Enter service fees"}
+                id="titles"
+                type="number"
+                margin="normal"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttachMoneyIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          {errors.serviceFees && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must be less than 10 dollars
+            </Typography>
+          )}
+          <Box
             sx={{
-              color: "red",
-              fontSize: "16px",
-              p: 1,
+              width: "100%",
+              height: "250px",
+              border: "3px dashed gray",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              my: 2,
             }}
           >
-            Must have additional description
-          </Typography>
-        )}
-        <Button variant="contained" type={submitting ? "disable" : "submit"}>
-          {submitting ? "Submitting" : "Submit"}
-        </Button>
-      </Box>
+            <div {...getRootProps({ className: "dropzone" })}>
+              <input {...getInputProps()} />
+              <Typography
+                variant="p"
+                component="p"
+                sx={{
+                  textAlign: "center",
+                  color: "gray",
+                  cursor: "pointer",
+                }}
+              >
+                Drag&apos;n&apos; drop 2 image of your home here, or click to
+                select images
+              </Typography>
+            </div>
+            <Box
+              component="aside"
+              sx={{
+                display: "block",
+                px: 3,
+              }}
+            >
+              <h4>Your selected images</h4>
+              <ul>
+                {acceptedFiles.map((file) => (
+                  <li key={file.path}>
+                    {file.path} - {file.size.toLocaleString()} bytes
+                  </li>
+                ))}
+              </ul>
+            </Box>
+          </Box>
+          <Controller
+            name="additionalDescription"
+            control={control}
+            rules={{ required: true }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                color="primary"
+                fullWidth
+                label={"Full details of your home"}
+                id="titles"
+                margin="normal"
+                multiline
+                rows={5}
+              />
+            )}
+          />
+          {errors.additionalDescription && (
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "16px",
+                p: 1,
+              }}
+            >
+              Must have additional description
+            </Typography>
+          )}
+          <Button variant="contained" type={submitting ? "disable" : "submit"}>
+            {submitting ? "Submitting" : "Submit"}
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };
