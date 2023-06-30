@@ -24,7 +24,15 @@ const HostedHomeList = () => {
   }, [id]);
 
   const handleDelete = async (id) => {
-    console.log(id);
+    try {
+      const response = await axios.delete(`/api/order/delete-place/${id}`);
+      if (response.status === 200) {
+        const newHomes = homes.filter((home) => home._id !== id);
+        setHomes(newHomes);
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
   return (
     <Box
