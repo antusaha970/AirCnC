@@ -78,7 +78,6 @@ const HostHomeForm = () => {
         {
           method: "POST",
           body: formData,
-          mode: "no-cors",
         }
       );
       const imgUpLoadRes = await response.json();
