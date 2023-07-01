@@ -85,6 +85,9 @@ const HostedHomeList = () => {
         justifyContent="center"
         alignItems="center"
         gap={2}
+        sx={{
+          flexWrap: "wrap",
+        }}
       >
         {homes?.map((place) => (
           <PlaceCard
