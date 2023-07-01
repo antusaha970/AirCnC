@@ -13,3 +13,11 @@ body {
 a{
   text-decoration: none;
 }
+
+
+
+
+
+.scrollbox {
+  overflow-x: hidden;
+}

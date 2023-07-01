@@ -3,9 +3,11 @@ import DashBoardLayOut from "@components/Shared/DashBoardLayOut/DashBoradLayOut"
 
 const layout = ({ children }) => {
   return (
-    <PrivateRoute WithOutAuth={HostHomeWithOutAuth}>
-      <DashBoardLayOut>{children}</DashBoardLayOut>
-    </PrivateRoute>
+    <div className="scrollbox">
+      <PrivateRoute WithOutAuth={HostHomeWithOutAuth}>
+        <DashBoardLayOut>{children}</DashBoardLayOut>
+      </PrivateRoute>
+    </div>
   );
 };
 
