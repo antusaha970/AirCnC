@@ -13,7 +13,8 @@ async function getAllPlaces() {
       return data;
     } else {
       const response = await fetch(
-        "https://air-cnc-bd.vercel.app/api/client/places"
+        "https://air-cnc-bd.vercel.app/api/client/places",
+        { next: { revalidate: 60 } }
       );
       const data = await response.json();
       return data;
