@@ -20,11 +20,9 @@ const PlaceCard = ({ place, handleDelete }) => {
     fees: { perNightFees },
   } = place?.placeDetails;
   const pathName = usePathname();
-  console.log(pathName);
-  console.log(place);
 
   return (
-    <Card sx={{ maxWidth: 300, boxShadow: "none" }}>
+    <Card sx={{ maxWidth: 300, boxShadow: "none" }} data-aos="zoom-in">
       <CardActionArea>
         <Image src={images[0]} height={164} width={300} alt={placeTitle} />
         <CardContent>

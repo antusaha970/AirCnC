@@ -7,8 +7,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 export const fetchCache = "force-no-store";
 const HostedHomeList = () => {
+  AOS.init();
   const {
     user: { id },
   } = useUser();
@@ -91,8 +95,8 @@ const HostedHomeList = () => {
       >
         {homes?.map((place) => (
           <PlaceCard
-            key={place._id}
             place={place}
+            key={place._id}
             handleDelete={handleDelete}
           />
         ))}
