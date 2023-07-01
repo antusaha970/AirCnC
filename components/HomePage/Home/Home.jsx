@@ -6,11 +6,30 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { PlaceCard } from "@components";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const Home = ({ places }) => {
+const Home = () => {
+  const [places, setPlaces] = useState({});
   useEffect(() => {
     Aos.init({ once: true });
+    async function getAllPlaces() {
+      try {
+        if (process.env.DEVELOPMENT) {
+          const response = await fetch("/api/client/places");
+          const data = await response.json();
+          return data;
+        } else {
+          const response = await fetch("/api/client/places", {
+            next: { revalidate: 60 },
+          });
+          const data = await response.json();
+          setPlaces(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllPlaces();
   }, []);
   return (
     <Container

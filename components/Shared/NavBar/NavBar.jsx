@@ -75,7 +75,7 @@ const NavBar = () => {
                 Help
               </Link>
               {!isSignedIn && (
-                <Link href="/sign-up" prefetch={false}>
+                <Link href="/sign-up">
                   <SignInButton>Sign Up</SignInButton>
                 </Link>
               )}
@@ -143,7 +143,7 @@ const NavBar = () => {
                   Help
                 </Link>
                 {!isSignedIn && (
-                  <Link href="/sign-up" prefetch={false}>
+                  <Link href="/sign-up">
                     <SignInButton>Sign Up</SignInButton>
                   </Link>
                 )}

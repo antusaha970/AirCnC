@@ -12,7 +12,9 @@ import "aos/dist/aos.css";
 
 export const fetchCache = "force-no-store";
 const HostedHomeList = () => {
-  AOS.init();
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const {
     user: { id },
   } = useUser();
