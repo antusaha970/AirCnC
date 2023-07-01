@@ -1,8 +1,6 @@
 import { Home } from "@components";
-import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
 export const metadata = {
   title: "Air CnC || Home",
 };

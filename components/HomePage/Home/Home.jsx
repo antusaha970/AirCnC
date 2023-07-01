@@ -3,8 +3,15 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import SearchBox from "../SearchBox/SearchBox";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { PlaceCard } from "@components";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 const Home = ({ places }) => {
-  console.log(places);
+  useEffect(() => {
+    Aos.init({ once: true });
+  }, []);
   return (
     <Container
       maxWidth="lg"
@@ -13,20 +20,32 @@ const Home = ({ places }) => {
         my: 2,
       }}
     >
-      <Typography
-        variant="h5"
-        component="h1"
-        sx={{
-          fontWeight: "bold",
-          mb: 3,
-        }}
-      >
-        Where do you want to go?
-      </Typography>
-
       <Stack direction={{ md: "row", sm: "column" }} gap={3}>
-        <Box flex={1}>
-          <SearchBox />
+        <Box
+          position="relative"
+          sx={{
+            minHeight: "100vh",
+          }}
+          flex={1}
+        >
+          <Box
+            sx={{
+              position: { md: "sticky", sm: "static" },
+              top: "10px",
+            }}
+          >
+            <Typography
+              variant="h5"
+              component="h1"
+              sx={{
+                fontWeight: "bold",
+                mb: 3,
+              }}
+            >
+              Where do you want to go?
+            </Typography>
+            <SearchBox />
+          </Box>
         </Box>
         <Box flex={2}>
           <Stack
@@ -51,6 +70,19 @@ const Home = ({ places }) => {
             >
               See all <NavigateNextIcon />
             </Typography>
+          </Stack>
+          <Stack
+            direction={{ md: "row", sm: "column" }}
+            justifyContent={{ sm: "center", md: "start" }}
+            alignItems="center"
+            gap={2}
+            sx={{
+              flexWrap: "wrap",
+            }}
+          >
+            {places?.result?.map((place) => (
+              <PlaceCard place={place} key={place._id} />
+            ))}
           </Stack>
         </Box>
       </Stack>

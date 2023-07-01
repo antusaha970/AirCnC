@@ -73,7 +73,7 @@ const PlaceCard = ({ place, handleDelete }) => {
           <Button
             color="danger"
             variant="contained"
-            onClick={() => handleDelete(place._id)}
+            onClick={() => handleDelete && handleDelete(place._id)}
           >
             Delete
           </Button>
