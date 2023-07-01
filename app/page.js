@@ -4,7 +4,6 @@ import "react-toastify/dist/ReactToastify.min.css";
 export const metadata = {
   title: "Air CnC || Home",
 };
-export const revalidate = 60;
 
 export default async function IndexPage() {
   return (

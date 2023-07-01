@@ -2,6 +2,7 @@ import Places from "@models/PlacesModel/place";
 import { connectToDB } from "@utils/database";
 import { NextResponse } from "next/server";
 
+export const revalidate = 60;
 export async function GET(req) {
   try {
     await connectToDB();
