@@ -3,7 +3,8 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import SearchBox from "../SearchBox/SearchBox";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-const Home = () => {
+const Home = ({ places }) => {
+  console.log(places);
   return (
     <Container
       maxWidth="lg"

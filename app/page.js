@@ -1,12 +1,31 @@
 import { Home } from "@components";
+import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 export const metadata = {
   title: "Air CnC || Home",
 };
-
-export default function IndexPage() {
+export const revalidate = 60;
+async function getAllPlaces() {
+  try {
+    if (process.env.DEVELOPMENT) {
+      const response = await fetch("http://localhost:3000/api/client/places");
+      const data = await response.json();
+      return data;
+    } else {
+      const response = await fetch(
+        "https://air-cnc-bd.vercel.app/api/client/places"
+      );
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+export default async function IndexPage() {
+  const places = await getAllPlaces();
   return (
     <>
       <ToastContainer
@@ -21,7 +40,7 @@ export default function IndexPage() {
         pauseOnHover
         theme="light"
       />
-      <Home />
+      <Home places={places} />
     </>
   );
 }
