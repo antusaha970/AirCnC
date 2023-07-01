@@ -69,7 +69,7 @@ const NavBar = () => {
                 Host your Home
               </Link>
               <Link href="/" className="nav-item">
-                Host your Experience
+                See your reservations
               </Link>
               <Link href="/" className="nav-item">
                 Help
