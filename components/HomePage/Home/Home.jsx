@@ -3,7 +3,7 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import SearchBox from "../SearchBox/SearchBox";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { PlaceCard } from "@components";
+import { MyContentLoader, PlaceCard } from "@components";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -12,6 +12,7 @@ import { getAllPlaces } from "@redux/slices/placesSlice";
 
 const Home = () => {
   const places = useSelector((state) => state.places.result);
+  const isLoading = useSelector((state) => state.places.isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     Aos.init({ once: true });
@@ -85,6 +86,9 @@ const Home = () => {
               flexWrap: "wrap",
             }}
           >
+            {isLoading && <MyContentLoader />}
+            {isLoading && <MyContentLoader />}
+            {isLoading && <MyContentLoader />}
             {places?.map((place) => (
               <PlaceCard place={place} key={place._id} />
             ))}
