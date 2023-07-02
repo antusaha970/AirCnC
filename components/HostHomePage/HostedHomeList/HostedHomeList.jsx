@@ -1,14 +1,15 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Loader, PlaceCard } from "@components";
+import { MyContentLoader, PlaceCard } from "@components";
 import { Box, Stack, Typography } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePlaceById, getAllPlacesById } from "@redux/slices/placesSlice";
 
 export const fetchCache = "force-no-store";
 const HostedHomeList = () => {
@@ -18,29 +19,19 @@ const HostedHomeList = () => {
   const {
     user: { id },
   } = useUser();
-  const [homes, setHomes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const personalHostedPlaces = useSelector(
+    (state) => state.places.personalHostedPlaces
+  );
+  const loading = useSelector((state) => state.places.isLoading);
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetchData();
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const { data } = await axios.get(`/api/order/get-hosted-places/${id}`);
-        setHomes(data.hostedPlaces);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  }, [id]);
+    dispatch(getAllPlacesById(id));
+  }, [id, dispatch]);
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`/api/order/delete-place/${id}`);
+      const response = await dispatch(deletePlaceById(id)).unwrap();
       if (response) {
-        const newHomes = homes.filter((home) => home._id !== id);
-        setHomes(newHomes);
         toast.success("Deleted successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -53,7 +44,6 @@ const HostedHomeList = () => {
         });
       }
     } catch (error) {
-      console.error(error);
       toast.error("Can't delete at this moment please try again later", {
         position: "top-right",
         autoClose: 3000,
@@ -85,7 +75,7 @@ const HostedHomeList = () => {
       >
         Your Hosted Homes
       </Typography>
-      {loading && <Loader />}
+      {loading && <MyContentLoader />}
       <Stack
         direction={{ md: "row", sm: "column" }}
         justifyContent="center"
@@ -95,7 +85,7 @@ const HostedHomeList = () => {
           flexWrap: "wrap",
         }}
       >
-        {homes?.map((place) => (
+        {personalHostedPlaces?.map((place) => (
           <PlaceCard
             place={place}
             key={place._id}
