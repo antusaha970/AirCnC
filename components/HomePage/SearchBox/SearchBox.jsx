@@ -35,8 +35,10 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addSearchOption } from "@redux/slices/searchSlice";
 import { formatSearchOptions } from "@utils/helperFunctions";
+import { useRouter } from "next/navigation";
 
 const SearchBox = () => {
+  const router = useRouter();
   const [location, setLocation] = useState("");
   const [arrivalDate, setArrivalDate] = useState(dayjs(arrivalFormattedDate));
   const [departureDate, setDepartureDate] = useState(
@@ -73,6 +75,7 @@ const SearchBox = () => {
         departureDate
       );
       dispatch(addSearchOption(searchOptionsObject));
+      router.push("/search");
     }
   };
   return (
@@ -118,17 +121,11 @@ const SearchBox = () => {
                 label="Arrival"
                 value={arrivalDate}
                 onChange={(newValue) => setArrivalDate(newValue)}
-                sx={{
-                  border: "1px solid #2BDE8C",
-                }}
               />
               <DatePicker
                 label="Departure"
                 value={departureDate}
                 onChange={(newValue) => setDepartureDate(newValue)}
-                sx={{
-                  border: "1px solid #2BDE8C",
-                }}
               />
             </DemoContainer>
           </LocalizationProvider>
