@@ -7,30 +7,27 @@ import { PlaceCard } from "@components";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPlaces } from "@redux/slices/placesSlice";
 
 const Home = () => {
-  const [places, setPlaces] = useState({});
+  const places = useSelector((state) => state.places.result);
+  const dispatch = useDispatch();
   useEffect(() => {
     Aos.init({ once: true });
     async function getAllPlaces() {
       try {
-        if (process.env.DEVELOPMENT) {
-          const response = await fetch("/api/client/places");
-          const data = await response.json();
-          return data;
-        } else {
-          const response = await fetch("/api/client/places", {
-            next: { revalidate: 60 },
-          });
-          const data = await response.json();
-          setPlaces(data);
-        }
+        const response = await fetch("/api/client/places", {
+          next: { revalidate: 60 },
+        });
+        const data = await response.json();
+        dispatch(addPlaces(data));
       } catch (error) {
         console.log(error);
       }
     }
     getAllPlaces();
-  }, []);
+  }, [dispatch]);
   return (
     <Container
       maxWidth="lg"
@@ -99,7 +96,7 @@ const Home = () => {
               flexWrap: "wrap",
             }}
           >
-            {places?.result?.map((place) => (
+            {places?.map((place) => (
               <PlaceCard place={place} key={place._id} />
             ))}
           </Stack>
