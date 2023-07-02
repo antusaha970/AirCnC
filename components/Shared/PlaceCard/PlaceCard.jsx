@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import "./PlaceCard.css";
 
 const PlaceCard = ({ place, handleDelete }) => {
   const {
@@ -22,15 +23,24 @@ const PlaceCard = ({ place, handleDelete }) => {
   const pathName = usePathname();
 
   return (
-    <Card sx={{ maxWidth: 300, boxShadow: "none" }} data-aos="zoom-in">
+    <Card
+      sx={{ maxWidth: { sm: "300px", md: "220px" }, boxShadow: "none" }}
+      data-aos="zoom-in"
+    >
       <CardActionArea>
-        <Image src={images[0]} height={164} width={300} alt={placeTitle} />
+        <Image
+          src={images[0]}
+          height={164}
+          width={220}
+          alt={placeTitle}
+          className="card-img"
+        />
         <CardContent>
           <Typography
             component="p"
             sx={{
               color: "#009AB4",
-              fontSize: "14px",
+              fontSize: { sm: "14px", md: "12px" },
               pb: 1,
             }}
           >
@@ -42,7 +52,7 @@ const PlaceCard = ({ place, handleDelete }) => {
             component="div"
             sx={{
               fontWeight: "600",
-              fontSize: "18px",
+              fontSize: { sm: "18px", md: "16px" },
               color: "#464646",
             }}
           >
