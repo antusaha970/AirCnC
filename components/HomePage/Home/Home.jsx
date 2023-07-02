@@ -6,27 +6,16 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { PlaceCard } from "@components";
 import Aos from "aos";
 import "aos/dist/aos.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPlaces } from "@redux/slices/placesSlice";
+import { getAllPlaces } from "@redux/slices/placesSlice";
 
 const Home = () => {
   const places = useSelector((state) => state.places.result);
   const dispatch = useDispatch();
   useEffect(() => {
     Aos.init({ once: true });
-    async function getAllPlaces() {
-      try {
-        const response = await fetch("/api/client/places", {
-          next: { revalidate: 60 },
-        });
-        const data = await response.json();
-        dispatch(addPlaces(data));
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAllPlaces();
+    dispatch(getAllPlaces());
   }, [dispatch]);
   return (
     <Container
