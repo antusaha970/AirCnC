@@ -43,7 +43,7 @@ const SearchFeedTitle = () => {
         }}
         component="h5"
       >
-        Stay in {searchOptions.searchLocation.location} division
+        Stay in {searchOptions?.searchLocation?.location}
       </Typography>
     </Box>
   );

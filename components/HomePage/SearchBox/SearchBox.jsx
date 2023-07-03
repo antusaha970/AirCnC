@@ -48,7 +48,7 @@ const SearchBox = () => {
   const [child, setChild] = useState(0);
   const [babes, setBabes] = useState(0);
   const dispatch = useDispatch();
-
+  console.log({ location });
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
@@ -96,9 +96,11 @@ const SearchBox = () => {
             onChange={handleLocationChange}
             variant="outlined"
           >
-            <MenuItem value={"Dhaka"}>Dhaka,Bangladesh</MenuItem>
-            <MenuItem value={"Chottogram"}>Chottogram,Bangladesh</MenuItem>
-            <MenuItem value={"Cox's Bazar"}>
+            <MenuItem value={"Dhaka,Bangladesh"}>Dhaka,Bangladesh</MenuItem>
+            <MenuItem value={"Chottogram,Bangladesh"}>
+              Chottogram,Bangladesh
+            </MenuItem>
+            <MenuItem value={"Cox's Bazar,Bangladesh"}>
               Cox&lsquo;s bazar ,Bangladesh
             </MenuItem>
           </Select>

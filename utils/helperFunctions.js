@@ -7,17 +7,17 @@ const formatSearchOptions = (
   departureDate
 ) => {
   let searchLocation;
-  if (location === "Dhaka") {
+  if (location === "Dhaka,Bangladesh") {
     searchLocation = {
       location,
       latLong: "23.8103,90.4125",
     };
-  } else if (location === "Chottogram") {
+  } else if (location === "Chottogram,Bangladesh") {
     searchLocation = {
       location,
       latLong: "22.3569,91.7832",
     };
-  } else if (location === "Cox's Bazar") {
+  } else if (location === "Cox's Bazar,Bangladesh") {
     searchLocation = {
       location,
       latLong: "21.4272,92.0058",
