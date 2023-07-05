@@ -44,7 +44,7 @@ export async function GET(req) {
         }
       }
     } else {
-      return NextResponse.json("Not found");
+      return NextResponse.json("Location is not available");
     }
   } catch (error) {
     console.error(error);
