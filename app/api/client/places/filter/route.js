@@ -25,6 +25,15 @@ export async function GET(req) {
           });
           return NextResponse.json({ availablePlaces }, { status: 200 });
         }
+        if (filter === "highest-price") {
+          const query = {
+            "placeDetails.location": location,
+          };
+          const availablePlaces = await Places.find(query).sort({
+            "placeDetails.fees.perNightFees": -1,
+          });
+          return NextResponse.json({ availablePlaces }, { status: 200 });
+        }
       }
     } else {
       return NextResponse.json("Not found");
