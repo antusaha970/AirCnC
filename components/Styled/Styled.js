@@ -58,3 +58,12 @@ export const SearchBoxButton = styled(ButtonBase)`
   font-size: 18px;
   font-weight: bold;
 `;
+
+export const FilterButton = styled(Typography)`
+  color: "#6A6A6A";
+  border-radius: 25px;
+  width: 150px;
+  height: 40px;
+  font-size: 14px;
+  text-align: center;
+`;
