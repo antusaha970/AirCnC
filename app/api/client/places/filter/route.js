@@ -24,8 +24,7 @@ export async function GET(req) {
             "placeDetails.fees.perNightFees": 1,
           });
           return NextResponse.json({ availablePlaces }, { status: 200 });
-        }
-        if (filter === "highest-price") {
+        } else if (filter === "highest-price") {
           const query = {
             "placeDetails.location": location,
           };
@@ -33,6 +32,15 @@ export async function GET(req) {
             "placeDetails.fees.perNightFees": -1,
           });
           return NextResponse.json({ availablePlaces }, { status: 200 });
+        } else if (filter === "self-checking") {
+          const query = {
+            "placeDetails.location": location,
+            "placeDetails.options.selfCheckIn": true,
+          };
+          const availablePlaces = await Places.find(query);
+          return NextResponse.json({ availablePlaces }, { status: 200 });
+        } else {
+          return NextResponse.json("Not found");
         }
       }
     } else {
