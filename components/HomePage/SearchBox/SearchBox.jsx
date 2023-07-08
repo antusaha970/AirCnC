@@ -48,7 +48,6 @@ const SearchBox = () => {
   const [child, setChild] = useState(0);
   const [babes, setBabes] = useState(0);
   const dispatch = useDispatch();
-  console.log({ location });
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
