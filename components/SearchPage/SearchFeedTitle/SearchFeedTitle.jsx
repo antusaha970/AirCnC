@@ -2,6 +2,7 @@
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import CountUp from "react-countup";
 import { useSelector } from "react-redux";
 
 const SearchFeedTitle = () => {
@@ -13,6 +14,7 @@ const SearchFeedTitle = () => {
     }
   }, [router, isSearched]);
   const searchOptions = useSelector((state) => state.search.searchOptions);
+  const searchResult = useSelector((state) => state.search.searchResults);
   const numberOfGuest =
     searchOptions?.numberOfGuests?.adults +
     searchOptions?.numberOfGuests?.babes +
@@ -33,7 +35,10 @@ const SearchFeedTitle = () => {
           color: "#272727",
         }}
       >
-        225 stays {arrivalDate} to {departureDate} {numberOfGuest} guests
+        <CountUp start={0} end={searchResult.length} delay={2}>
+          {({ countUpRef }) => <span ref={countUpRef} />}
+        </CountUp>{" "}
+        stays {arrivalDate} to {departureDate} {numberOfGuest} guests
       </Typography>
       <Typography
         sx={{
