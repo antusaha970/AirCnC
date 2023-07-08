@@ -27,6 +27,19 @@ const SearchFeed = () => {
     }
     searchResult();
   }, [dispatch, searchLocation]);
+
+  const handleFilterSearch = async (filter) => {
+    try {
+      const { data } = await axios.get(
+        `/api/client/places/filter?location=${searchLocation}&filter=${filter}`
+      );
+      console.log(data.availablePlaces);
+      dispatch(addSearchResult(data.availablePlaces));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Box
       component="section"
@@ -38,13 +51,25 @@ const SearchFeed = () => {
         <Box flex={1}>
           <SearchFeedTitle />
           <Stack direction="row" gap={2}>
-            <FilterButton variant="p" component="button">
+            <FilterButton
+              variant="p"
+              component="button"
+              onClick={() => handleFilterSearch("lowest_price")}
+            >
               Lowest Price
             </FilterButton>
-            <FilterButton variant="p" component="button">
+            <FilterButton
+              onClick={() => handleFilterSearch("highest-price")}
+              variant="p"
+              component="button"
+            >
               Highest Price
             </FilterButton>
-            <FilterButton variant="p" component="button">
+            <FilterButton
+              onClick={() => handleFilterSearch("self-checking")}
+              variant="p"
+              component="button"
+            >
               self-checking
             </FilterButton>
           </Stack>
