@@ -86,12 +86,12 @@ const Home = () => {
               flexWrap: "wrap",
             }}
           >
-            {isLoading && <MyContentLoader />}
-            {isLoading && <MyContentLoader />}
-            {isLoading && <MyContentLoader />}
             {places?.map((place) => (
               <PlaceCard place={place} key={place._id} />
             ))}
+            {isLoading && <MyContentLoader />}
+            {isLoading && <MyContentLoader />}
+            {isLoading && <MyContentLoader />}
           </Stack>
         </Box>
       </Stack>

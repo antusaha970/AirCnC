@@ -66,4 +66,5 @@ export const FilterButton = styled(Typography)`
   height: 40px;
   font-size: 14px;
   text-align: center;
+  cursor: pointer;
 `;

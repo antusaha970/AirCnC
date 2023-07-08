@@ -75,7 +75,7 @@ const HostedHomeList = () => {
       >
         Your Hosted Homes
       </Typography>
-      {loading && <MyContentLoader />}
+
       <Stack
         direction={{ md: "row", sm: "column" }}
         justifyContent="center"
@@ -92,6 +92,7 @@ const HostedHomeList = () => {
             handleDelete={handleDelete}
           />
         ))}
+        {loading && <MyContentLoader />}
       </Stack>
     </Box>
   );
