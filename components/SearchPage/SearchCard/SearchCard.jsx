@@ -4,6 +4,8 @@ import Image from "next/image";
 import StarIcon from "@mui/icons-material/Star";
 import Link from "next/link";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { diffOfDays } from "@utils/dateHelper";
 
 const style = {
   position: "absolute",
@@ -15,11 +17,13 @@ const style = {
 };
 
 const SearchCard = ({ place }) => {
-  console.log(place);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const dates = useSelector(
+    (state) => state.search.searchOptions.datesOfAccommodation
+  );
+  const differenceInDays = diffOfDays(dates.arrivalDate, dates.departureDate);
   const {
     placeDetails: {
       images,
@@ -131,6 +135,17 @@ const SearchCard = ({ place }) => {
                 }}
               >
                 ${perNightFees}/ night
+                <br />
+                <Typography
+                  component="span"
+                  sx={{
+                    fontSize: "16px",
+                    color: "#6A6A6A",
+                    fontWeight: "500",
+                  }}
+                >
+                  ${perNightFees * differenceInDays}/ total
+                </Typography>
               </Typography>
             </Stack>
           </Box>

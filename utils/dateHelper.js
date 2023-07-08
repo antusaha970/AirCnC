@@ -12,4 +12,15 @@ const monthAfter = (threeDaysLater.getMonth() + 1).toString().padStart(2, "0");
 const dayAfter = threeDaysLater.getDate().toString().padStart(2, "0");
 const departureFormattedDate = `${yearAfter}-${monthAfter}-${dayAfter}`; // "2022-04-20" (3 days after the original date)
 
-export { departureFormattedDate, arrivalFormattedDate };
+function diffOfDays(arrivalDate, departureDate) {
+  const date1 = new Date(arrivalDate);
+  const date2 = new Date(departureDate);
+
+  const differenceInMilliseconds = Math.abs(date2 - date1);
+  const differenceInDays = Math.ceil(
+    differenceInMilliseconds / (24 * 60 * 60 * 1000)
+  );
+  return differenceInDays;
+}
+
+export { departureFormattedDate, arrivalFormattedDate, diffOfDays };

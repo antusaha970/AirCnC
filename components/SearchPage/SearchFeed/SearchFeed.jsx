@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import SearchFeedTitle from "../SearchFeedTitle/SearchFeedTitle";
 import { FilterButton } from "@components/Styled/Styled";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { addSearchResult } from "@redux/slices/searchSlice";
 import SearchCard from "../SearchCard/SearchCard";
+import { MyContentLoader } from "@components";
 
 const SearchFeed = () => {
   const searchLocation = useSelector(
@@ -91,6 +92,10 @@ const SearchFeed = () => {
               searchResults?.map((place) => (
                 <SearchCard key={place._id} place={place} />
               ))}
+
+            {loading && <MyContentLoader />}
+            {loading && <MyContentLoader />}
+            {loading && <MyContentLoader />}
           </Stack>
         </Box>
         <Box flex={1}>flex 2</Box>
