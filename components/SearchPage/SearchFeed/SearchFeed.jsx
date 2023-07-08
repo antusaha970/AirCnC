@@ -4,25 +4,30 @@ import { Box, Stack, Typography } from "@mui/material";
 import SearchFeedTitle from "../SearchFeedTitle/SearchFeedTitle";
 import { FilterButton } from "@components/Styled/Styled";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { addSearchResult } from "@redux/slices/searchSlice";
+import SearchCard from "../SearchCard/SearchCard";
 
 const SearchFeed = () => {
-  const search = useSelector((state) => state.search);
   const searchLocation = useSelector(
     (state) => state.search.searchOptions.searchLocation.location
   );
+  const searchResults = useSelector((state) => state.search.searchResults);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function searchResult() {
       try {
+        setLoading(true);
         const { data } = await axios.get(
           `/api/client/places/filter?location=${searchLocation}`
         );
         dispatch(addSearchResult(data.availablePlaces));
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
     searchResult();
@@ -30,6 +35,7 @@ const SearchFeed = () => {
 
   const handleFilterSearch = async (filter) => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `/api/client/places/filter?location=${searchLocation}&filter=${filter}`
       );
@@ -37,6 +43,8 @@ const SearchFeed = () => {
       dispatch(addSearchResult(data.availablePlaces));
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,6 +80,17 @@ const SearchFeed = () => {
             >
               self-checking
             </FilterButton>
+          </Stack>
+          <Stack
+            gap={3}
+            sx={{
+              mt: 2,
+            }}
+          >
+            {!loading &&
+              searchResults?.map((place) => (
+                <SearchCard key={place._id} place={place} />
+              ))}
           </Stack>
         </Box>
         <Box flex={1}>flex 2</Box>

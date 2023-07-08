@@ -16,3 +16,4 @@ export { default as HostHomeForm } from "./HostHomePage/HostHomeForm/HostHomeFor
 export { default as HostedHomeList } from "./HostHomePage/HostedHomeList/HostedHomeList";
 export { default as SearchFeed } from "./SearchPage/SearchFeed/SearchFeed";
 export { default as SearchFeedTitle } from "./SearchPage/SearchFeedTitle/SearchFeedTitle";
+export { default as SearchCard } from "./SearchPage/SearchCard/SearchCard";
