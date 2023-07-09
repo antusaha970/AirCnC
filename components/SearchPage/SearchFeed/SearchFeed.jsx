@@ -9,11 +9,22 @@ import axios from "axios";
 import { addSearchResult } from "@redux/slices/searchSlice";
 import SearchCard from "../SearchCard/SearchCard";
 import { MyContentLoader } from "@components";
+import dynamic from "next/dynamic";
+
+const MapComponent = dynamic(() => import("../MapComponent/MapComponent"), {
+  ssr: false,
+});
 
 const SearchFeed = () => {
   const searchLocation = useSelector(
     (state) => state.search.searchOptions.searchLocation.location
   );
+  const latLongStr = useSelector(
+    (state) => state.search.searchOptions.searchLocation.latLong
+  );
+  const latLongArr = latLongStr.split(",");
+  console.log({ latLongArr });
+
   const searchResults = useSelector((state) => state.search.searchResults);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -98,7 +109,19 @@ const SearchFeed = () => {
             {loading && <MyContentLoader />}
           </Stack>
         </Box>
-        <Box flex={1}>flex 2</Box>
+        <Box flex={1}>
+          <Box
+            sx={{
+              width: "100%",
+              height: "400px",
+            }}
+          >
+            <MapComponent
+              latitude={Number(latLongArr[0])}
+              longitude={Number(latLongArr[1])}
+            />
+          </Box>
+        </Box>
       </Stack>
     </Box>
   );
