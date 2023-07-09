@@ -113,7 +113,7 @@ const SearchFeed = () => {
           <Box
             sx={{
               width: "100%",
-              height: "400px",
+              ml: { sm: 0, md: 2 },
             }}
           >
             <MapComponent

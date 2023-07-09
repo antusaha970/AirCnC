@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 const MapComponent = ({ latitude, longitude }) => {
@@ -16,9 +16,6 @@ const MapComponent = ({ latitude, longitude }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="Map of your chosen location"
       />
-      <Marker position={position}>
-        <Popup>A sample location marker.</Popup>
-      </Marker>
     </MapContainer>
   );
 };
