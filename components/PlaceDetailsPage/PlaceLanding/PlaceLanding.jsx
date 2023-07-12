@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -10,7 +10,8 @@ import { settings } from "@utils/helperFunctions";
 const PlaceLanding = ({ place }) => {
   const {
     result: {
-      placeDetails: { images },
+      placeDetails: { images, placeTitle },
+      userProfile,
     },
   } = place;
   console.log(place);
@@ -20,11 +21,23 @@ const PlaceLanding = ({ place }) => {
       <Box
         sx={{
           width: "100%",
-          minHeight: "60vh",
+          minHeight: "75vh",
           overflow: "hidden",
           mt: 1,
         }}
       >
+        <Typography
+          variant="h1"
+          component="h1"
+          sx={{
+            fontSize: "40px",
+            textAlign: "center",
+            fontWeight: "bold",
+            my: 2,
+          }}
+        >
+          {placeTitle}
+        </Typography>
         <Slider {...settings}>
           {images.map((image, index) => (
             <div key={image}>
@@ -50,6 +63,47 @@ const PlaceLanding = ({ place }) => {
           ))}
         </Slider>
       </Box>
+
+      <Container maxWidth="lg">
+        <Stack direction={{ sm: "column-reverse", md: "row" }} gap={2}>
+          <Box flex={2}>
+            <Box>
+              <Stack
+                direction="row"
+                sx={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                gap={1}
+              >
+                <Typography
+                  variant="h1"
+                  component="h5"
+                  sx={{
+                    fontSize: "35px",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
+                >
+                  {placeTitle}
+                </Typography>
+                <Box>
+                  <Image
+                    src={userProfile}
+                    alt="user profile picture"
+                    width={50}
+                    height={50}
+                    style={{
+                      borderRadius: "25px",
+                    }}
+                  />
+                </Box>
+              </Stack>
+            </Box>
+          </Box>
+          <Box flex={1}>fasdfdsf</Box>
+        </Stack>
+      </Container>
     </Box>
   );
 };
