@@ -23,7 +23,6 @@ const SearchFeed = () => {
     (state) => state.search.searchOptions.searchLocation.latLong
   );
   const latLongArr = latLongStr.split(",");
-  console.log({ latLongArr });
 
   const searchResults = useSelector((state) => state.search.searchResults);
   const dispatch = useDispatch();
