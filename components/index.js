@@ -17,3 +17,4 @@ export { default as HostedHomeList } from "./HostHomePage/HostedHomeList/HostedH
 export { default as SearchFeed } from "./SearchPage/SearchFeed/SearchFeed";
 export { default as SearchFeedTitle } from "./SearchPage/SearchFeedTitle/SearchFeedTitle";
 export { default as SearchCard } from "./SearchPage/SearchCard/SearchCard";
+export { default as PlaceLanding } from "./PlaceDetailsPage/PlaceLanding/PlaceLanding";

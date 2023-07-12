@@ -1,3 +1,4 @@
+import { PlaceLanding } from "@components";
 import axios from "axios";
 
 export const getPlaceData = async (id) => {
@@ -21,5 +22,9 @@ export const getPlaceData = async (id) => {
 
 export default async function Page({ params }) {
   const placeData = await getPlaceData(params.id);
-  return <div>My Post: {params.id}</div>;
+  return (
+    <>
+      <PlaceLanding place={placeData} />
+    </>
+  );
 }
