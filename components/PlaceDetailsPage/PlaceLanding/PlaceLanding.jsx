@@ -13,10 +13,11 @@ const PlaceLanding = ({ place }) => {
   const {
     result: {
       placeDetails: { images, placeTitle },
+      _id,
     },
   } = place;
+  console.log(place);
   const { isLoaded, isSignedIn } = useUser();
-  console.log({ isLoaded, isSignedIn });
 
   return (
     <Box component="section">
@@ -31,7 +32,9 @@ const PlaceLanding = ({ place }) => {
           <Box flex={2}>
             <PlaceInfo place={place} />
           </Box>
-          <Box flex={1}>{isSignedIn ? <ReserveBox /> : <ReserveSignIn />}</Box>
+          <Box flex={1}>
+            {isSignedIn ? <ReserveBox /> : <ReserveSignIn id={_id} />}
+          </Box>
         </Stack>
       </Container>
     </Box>
