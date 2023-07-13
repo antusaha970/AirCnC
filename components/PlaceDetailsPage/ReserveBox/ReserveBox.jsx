@@ -24,6 +24,17 @@ const ReserveBox = ({ placeDetails }) => {
     dayjs(departureFormattedDate)
   );
   const [differenceOfDays, setDifferenceOfDays] = useState(null);
+  console.log(search);
+  useEffect(() => {
+    if (search.isSearched) {
+      setArrivalDate(
+        dayjs(search.searchOptions.datesOfAccommodation.arrivalDate)
+      );
+      setDepartureDate(
+        dayjs(search.searchOptions.datesOfAccommodation.departureDate)
+      );
+    }
+  }, []);
   useEffect(() => {
     setDifferenceOfDays(diffOfDays(arrivalDate, departureDate));
   }, [arrivalDate, departureDate]);
@@ -141,7 +152,7 @@ const ReserveBox = ({ placeDetails }) => {
               fontWeight: "bold",
             }}
           >
-            ${perNightFees * differenceOfDays + serviceFees + perNightFees}
+            ${perNightFees * differenceOfDays + serviceFees + cleaningFees}
           </Typography>
         </Stack>
         <Divider />
