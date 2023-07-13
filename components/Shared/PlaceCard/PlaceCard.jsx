@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import "./PlaceCard.css";
+import Link from "next/link";
 
 const PlaceCard = ({ place, handleDelete }) => {
   const {
@@ -46,18 +47,20 @@ const PlaceCard = ({ place, handleDelete }) => {
           >
             {location}
           </Typography>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{
-              fontWeight: "600",
-              fontSize: { sm: "18px", md: "16px" },
-              color: "#464646",
-            }}
-          >
-            {placeTitle}
-          </Typography>
+          <Link href={`/place-details/${place._id}`}>
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{
+                fontWeight: "600",
+                fontSize: { sm: "18px", md: "16px" },
+                color: "#464646",
+              }}
+            >
+              {placeTitle}
+            </Typography>
+          </Link>
           <Typography
             variant="body2"
             color="text.secondary"
