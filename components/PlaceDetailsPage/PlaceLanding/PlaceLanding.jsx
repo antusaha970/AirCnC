@@ -16,7 +16,6 @@ const PlaceLanding = ({ place }) => {
       _id,
     },
   } = place;
-  console.log(place);
   const { isLoaded, isSignedIn } = useUser();
 
   return (
@@ -33,7 +32,11 @@ const PlaceLanding = ({ place }) => {
             <PlaceInfo place={place} />
           </Box>
           <Box flex={1}>
-            {isSignedIn ? <ReserveBox /> : <ReserveSignIn id={_id} />}
+            {isSignedIn ? (
+              <ReserveBox placeDetails={place.result.placeDetails} />
+            ) : (
+              <ReserveSignIn id={_id} />
+            )}
           </Box>
         </Stack>
       </Container>

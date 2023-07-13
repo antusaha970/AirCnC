@@ -68,3 +68,15 @@ export const FilterButton = styled(Typography)`
   text-align: center;
   cursor: pointer;
 `;
+
+export const ReserveButton = styled(ButtonBase)`
+  background: rgb(43, 222, 140);
+  background: linear-gradient(
+    144deg,
+    rgba(43, 222, 140, 1) 35%,
+    rgba(134, 242, 68, 1) 100%
+  );
+  color: "#fff";
+  height: 40px;
+  width: 100%;
+`;
