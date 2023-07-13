@@ -80,7 +80,7 @@ const Home = () => {
           <Stack
             direction={{ md: "row", sm: "column" }}
             justifyContent={{ sm: "center", md: "start" }}
-            alignItems="center"
+            alignItems="start"
             gap={2}
             sx={{
               flexWrap: "wrap",

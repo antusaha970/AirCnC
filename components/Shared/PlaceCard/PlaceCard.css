@@ -1,11 +1,11 @@
 .card-img{
-    width: 220px;
-    height: auto;
+    width: 358px;
+    height:  220px;
 }
 
 @media screen and (max-width: 764px) {
     .card-img{
-        width: 100%;
-        height: auto;
+        width: 358px;
+        height: 220px;
     }
 }
