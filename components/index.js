@@ -20,3 +20,5 @@ export { default as SearchCard } from "./SearchPage/SearchCard/SearchCard";
 export { default as PlaceLanding } from "./PlaceDetailsPage/PlaceLanding/PlaceLanding";
 export { default as PlaceInfo } from "./PlaceDetailsPage/PlaceInfo/PlaceInfo";
 export { default as PlaceImageCarousel } from "./PlaceDetailsPage/PlaceImageCarousel/PlaceImageCarousel";
+export { default as ReserveBox } from "./PlaceDetailsPage/ReserveBox/ReserveBox";
+export { default as ReserveSignIn } from "./PlaceDetailsPage/ReserveSignIn/ReserveSignIn";

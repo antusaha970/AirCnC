@@ -1,7 +1,13 @@
 "use client";
 
 import { Box, Container, Stack, Typography } from "@mui/material";
-import { PlaceImageCarousel, PlaceInfo } from "@components";
+import {
+  PlaceImageCarousel,
+  PlaceInfo,
+  ReserveBox,
+  ReserveSignIn,
+} from "@components";
+import { useUser } from "@clerk/nextjs";
 
 const PlaceLanding = ({ place }) => {
   const {
@@ -9,6 +15,8 @@ const PlaceLanding = ({ place }) => {
       placeDetails: { images, placeTitle },
     },
   } = place;
+  const { isLoaded, isSignedIn } = useUser();
+  console.log({ isLoaded, isSignedIn });
 
   return (
     <Box component="section">
@@ -23,7 +31,7 @@ const PlaceLanding = ({ place }) => {
           <Box flex={2}>
             <PlaceInfo place={place} />
           </Box>
-          <Box flex={1}>fasdfdsf</Box>
+          <Box flex={1}>{isSignedIn ? <ReserveBox /> : <ReserveSignIn />}</Box>
         </Stack>
       </Container>
     </Box>
