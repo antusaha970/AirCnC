@@ -18,3 +18,5 @@ export { default as SearchFeed } from "./SearchPage/SearchFeed/SearchFeed";
 export { default as SearchFeedTitle } from "./SearchPage/SearchFeedTitle/SearchFeedTitle";
 export { default as SearchCard } from "./SearchPage/SearchCard/SearchCard";
 export { default as PlaceLanding } from "./PlaceDetailsPage/PlaceLanding/PlaceLanding";
+export { default as PlaceInfo } from "./PlaceDetailsPage/PlaceInfo/PlaceInfo";
+export { default as PlaceImageCarousel } from "./PlaceDetailsPage/PlaceImageCarousel/PlaceImageCarousel";
