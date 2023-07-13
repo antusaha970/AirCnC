@@ -1,6 +1,15 @@
 "use client";
 
-import { Box, Container, Divider, Stack, Typography } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Container,
+  Divider,
+  Stack,
+  Typography,
+} from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -10,6 +19,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CleanHandsIcon from "@mui/icons-material/CleanHands";
 import PersonIcon from "@mui/icons-material/Person";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const PlaceLanding = ({ place }) => {
   const {
@@ -20,6 +30,7 @@ const PlaceLanding = ({ place }) => {
         location,
         roomsAndGuest: { guest, bedRooms, beds, bartRoom },
         options: { entireHome, selfCheckIn },
+        additionalDescription,
       },
       userProfile,
     },
@@ -136,7 +147,8 @@ const PlaceLanding = ({ place }) => {
                 }}
                 component="p"
               >
-                {guest} guests {bedRooms} bedrooms {beds} beds {bartRoom} baths
+                {guest} guests &nbsp; &nbsp; {bedRooms} bedrooms &nbsp; &nbsp;{" "}
+                {beds} beds&nbsp; &nbsp; {bartRoom} baths
               </Typography>
               <Divider
                 sx={{
@@ -262,6 +274,38 @@ const PlaceLanding = ({ place }) => {
                     my: 1,
                   }}
                 />
+                <Accordion defaultExpanded>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="more-info-content"
+                    id="more-info-header"
+                  >
+                    <Typography
+                      sx={{
+                        color: "#0377FF",
+                      }}
+                    >
+                      Read more about the space
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography
+                      sx={{
+                        color: "#6A6A6A",
+                      }}
+                    >
+                      {additionalDescription}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Typography
+                  component="p"
+                  sx={{
+                    my: 1,
+                  }}
+                >
+                  Reviews
+                </Typography>
               </Box>
             </Box>
           </Box>
