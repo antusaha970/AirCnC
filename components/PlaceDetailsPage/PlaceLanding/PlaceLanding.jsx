@@ -292,6 +292,7 @@ const PlaceLanding = ({ place }) => {
                     <Typography
                       sx={{
                         color: "#6A6A6A",
+                        whiteSpace: "pre-wrap",
                       }}
                     >
                       {additionalDescription}
