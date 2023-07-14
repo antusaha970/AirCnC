@@ -3,7 +3,7 @@
 import { Box, Divider, Stack, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useEffect, useState } from "react";
 import {
@@ -13,18 +13,19 @@ import {
 } from "@utils/dateHelper";
 import dayjs from "dayjs";
 import { ReserveButton } from "@components/Styled/Styled";
+import { addReservationInfo } from "@redux/slices/reservationSlice";
+import { useRouter } from "next/navigation";
 const ReserveBox = ({ placeDetails }) => {
   const {
     fees: { perNightFees, cleaningFees, serviceFees },
   } = placeDetails;
-  console.log(placeDetails);
+  const router = useRouter();
   const search = useSelector((state) => state.search);
   const [arrivalDate, setArrivalDate] = useState(dayjs(arrivalFormattedDate));
   const [departureDate, setDepartureDate] = useState(
     dayjs(departureFormattedDate)
   );
   const [differenceOfDays, setDifferenceOfDays] = useState(null);
-  console.log(search);
   useEffect(() => {
     if (search.isSearched) {
       setArrivalDate(
@@ -38,6 +39,18 @@ const ReserveBox = ({ placeDetails }) => {
   useEffect(() => {
     setDifferenceOfDays(diffOfDays(arrivalDate, departureDate));
   }, [arrivalDate, departureDate]);
+  const dispatch = useDispatch();
+  const handleReservation = () => {
+    const arrival = arrivalDate.$d;
+    const departure = departureDate.$d;
+    const finalDate = {
+      arrival: JSON.stringify(arrival),
+      departure: JSON.stringify(departure),
+    };
+    dispatch(addReservationInfo({ finalDate }));
+    router.push("/confirm-booking/step-1");
+  };
+
   return (
     <Box
       sx={{
@@ -156,7 +169,14 @@ const ReserveBox = ({ placeDetails }) => {
           </Typography>
         </Stack>
         <Divider />
-        <ReserveButton>Reserve</ReserveButton>
+        <ReserveButton
+          sx={{
+            color: "#fff",
+          }}
+          onClick={handleReservation}
+        >
+          Reserve
+        </ReserveButton>
       </Box>
     </Box>
   );

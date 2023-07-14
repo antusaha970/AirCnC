@@ -8,6 +8,9 @@ import {
   ReserveSignIn,
 } from "@components";
 import { useUser } from "@clerk/nextjs";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { addReservedPlace } from "@redux/slices/reservationSlice";
 
 const PlaceLanding = ({ place }) => {
   const {
@@ -17,6 +20,10 @@ const PlaceLanding = ({ place }) => {
     },
   } = place;
   const { isLoaded, isSignedIn } = useUser();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addReservedPlace(place.result));
+  }, [dispatch, place]);
 
   return (
     <Box component="section">

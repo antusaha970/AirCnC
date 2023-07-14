@@ -20,6 +20,10 @@ export const getPlaceData = async (id) => {
   }
 };
 
+export const metadata = {
+  title: "AirCnC || Home",
+};
+
 export default async function Page({ params }) {
   const placeData = await getPlaceData(params.id);
   return (
