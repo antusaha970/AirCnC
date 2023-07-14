@@ -18,14 +18,15 @@ const Step1 = () => {
   const [arrivalDate, setArrivalDate] = useState(null);
   const [departureDate, setDepartureDate] = useState(null);
   const [differenceOfDays, setDifferenceOfDays] = useState(0);
-  const {
-    placeDetails: { location },
-  } = reservedPlace;
-  console.log(reservedPlace);
+  const [reservedLocation, setReservedLocation] = useState("");
   useEffect(() => {
     setArrivalDate(new Date(JSON.parse(reservationInfo.arrival)));
     setDepartureDate(new Date(JSON.parse(reservationInfo.departure)));
-  }, [reservationInfo.arrival, reservationInfo.departure]);
+    const {
+      placeDetails: { location },
+    } = reservedPlace;
+    setReservedLocation(location);
+  }, [reservationInfo.arrival, reservationInfo.departure, reservedPlace]);
   useEffect(() => {
     setDifferenceOfDays(diffOfDays(arrivalDate, departureDate));
   }, [arrivalDate, departureDate]);
@@ -51,7 +52,7 @@ const Step1 = () => {
           sx={{ fontSize: "22px", fontWeight: "500", mt: 1 }}
           component="p"
         >
-          {differenceOfDays} nights in {location}
+          {differenceOfDays} nights in {reservedLocation}
         </Typography>
         <Stack
           direction="row"

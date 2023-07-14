@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   reservedPlace: {},
   reservationInfo: {},
+  isReserving: false,
 };
 
 export const reservationSlice = createSlice({
@@ -14,6 +15,7 @@ export const reservationSlice = createSlice({
     },
     addReservationInfo: (state, action) => {
       state.reservationInfo = action.payload.finalDate;
+      state.isReserving = true;
     },
   },
 });

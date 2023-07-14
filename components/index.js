@@ -24,3 +24,4 @@ export { default as ReserveBox } from "./PlaceDetailsPage/ReserveBox/ReserveBox"
 export { default as ReserveSignIn } from "./PlaceDetailsPage/ReserveSignIn/ReserveSignIn";
 export { default as Step1 } from "./ConfirmBookingPage/Step1/Step1";
 export { default as StepperComponent } from "./ConfirmBookingPage/StepperComponent/StepperComponent";
+export { default as PrivateRouteForBooking } from "./ConfirmBookingPage/PrivateRouteForBooking/PrivateRouteForBooking";
