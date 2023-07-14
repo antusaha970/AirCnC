@@ -10,6 +10,7 @@ import { ReserveButton as AgreeButton } from "@components/Styled/Styled";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { diffOfDays } from "@utils/dateHelper";
+import Link from "next/link";
 const Step1 = () => {
   const reservationInfo = useSelector(
     (state) => state.reservation.reservationInfo
@@ -107,7 +108,7 @@ const Step1 = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            mb: 1,
+            mb: 3,
           }}
         >
           <ChildFriendlyIcon /> &nbsp;&nbsp; Suitable for children and infants
@@ -116,7 +117,7 @@ const Step1 = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            mb: 1,
+            mb: 3,
           }}
         >
           <PetsIcon /> &nbsp;&nbsp; Pets allowed
@@ -125,7 +126,7 @@ const Step1 = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            mb: 1,
+            mb: 3,
           }}
         >
           <NoDrinksIcon /> &nbsp;&nbsp; No parties or events
@@ -134,19 +135,21 @@ const Step1 = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            mb: 1,
+            mb: 3,
           }}
         >
           <SmokingRoomsIcon /> &nbsp;&nbsp; Smoking allowed
         </Typography>
       </Box>
-      <AgreeButton
-        sx={{
-          color: "#fff",
-        }}
-      >
-        Agree and Continue
-      </AgreeButton>
+      <Link href="/confirm-booking/step-2">
+        <AgreeButton
+          sx={{
+            color: "#fff",
+          }}
+        >
+          Agree and Continue
+        </AgreeButton>
+      </Link>
     </Box>
   );
 };
