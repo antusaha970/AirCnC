@@ -22,3 +22,5 @@ export { default as PlaceInfo } from "./PlaceDetailsPage/PlaceInfo/PlaceInfo";
 export { default as PlaceImageCarousel } from "./PlaceDetailsPage/PlaceImageCarousel/PlaceImageCarousel";
 export { default as ReserveBox } from "./PlaceDetailsPage/ReserveBox/ReserveBox";
 export { default as ReserveSignIn } from "./PlaceDetailsPage/ReserveSignIn/ReserveSignIn";
+export { default as Step1 } from "./ConfirmBookingPage/Step1/Step1";
+export { default as StepperComponent } from "./ConfirmBookingPage/StepperComponent/StepperComponent";

@@ -1,7 +1,12 @@
+import { Step1 } from "@components";
 import React from "react";
 
 const page = () => {
-  return <div>page</div>;
+  return (
+    <>
+      <Step1 />
+    </>
+  );
 };
 
 export default page;
