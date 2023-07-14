@@ -7,7 +7,28 @@ import NoDrinksIcon from "@mui/icons-material/NoDrinks";
 import SmokingRoomsIcon from "@mui/icons-material/SmokingRooms";
 import ChildFriendlyIcon from "@mui/icons-material/ChildFriendly";
 import { ReserveButton as AgreeButton } from "@components/Styled/Styled";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { diffOfDays } from "@utils/dateHelper";
 const Step1 = () => {
+  const reservationInfo = useSelector(
+    (state) => state.reservation.reservationInfo
+  );
+  const reservedPlace = useSelector((state) => state.reservation.reservedPlace);
+  const [arrivalDate, setArrivalDate] = useState(null);
+  const [departureDate, setDepartureDate] = useState(null);
+  const [differenceOfDays, setDifferenceOfDays] = useState(0);
+  const {
+    placeDetails: { location },
+  } = reservedPlace;
+  console.log(reservedPlace);
+  useEffect(() => {
+    setArrivalDate(new Date(JSON.parse(reservationInfo.arrival)));
+    setDepartureDate(new Date(JSON.parse(reservationInfo.departure)));
+  }, [reservationInfo.arrival, reservationInfo.departure]);
+  useEffect(() => {
+    setDifferenceOfDays(diffOfDays(arrivalDate, departureDate));
+  }, [arrivalDate, departureDate]);
   return (
     <Container maxWidth="lg" component="section">
       <Stack
@@ -37,7 +58,7 @@ const Step1 = () => {
               sx={{ fontSize: "22px", fontWeight: "500", mt: 1 }}
               component="p"
             >
-              3 nights in Dhaka
+              {differenceOfDays} nights in {location}
             </Typography>
             <Stack
               direction="row"
@@ -51,14 +72,20 @@ const Step1 = () => {
                   color: "#6A6A6A",
                 }}
               >
-                Monday check-in <br /> After 12:00 PM
+                {arrivalDate?.toLocaleDateString("en-US", {
+                  weekday: "long",
+                })}{" "}
+                check-in <br /> After 12:00 AM
               </Typography>
               <Typography
                 sx={{
                   color: "#6A6A6A",
                 }}
               >
-                Monday check-in <br /> After 12:00 PM
+                {departureDate?.toLocaleDateString("en-US", {
+                  weekday: "long",
+                })}{" "}
+                check-out <br /> After 12:00 AM
               </Typography>
             </Stack>
             <Typography
