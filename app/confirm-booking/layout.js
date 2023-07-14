@@ -1,6 +1,6 @@
 "use client";
 
-import { PrivateRouteForBooking } from "@components";
+import { BookingCard, PrivateRouteForBooking } from "@components";
 import { Box, Container, Stack } from "@mui/material";
 
 const layout = ({ children }) => {
@@ -15,7 +15,9 @@ const layout = ({ children }) => {
           gap={2}
         >
           <Box flex={1}>{children}</Box>
-          <Box flex={1}>fasdfdsf</Box>
+          <Box flex={1}>
+            <BookingCard />
+          </Box>
         </Stack>
       </Container>
     </PrivateRouteForBooking>
