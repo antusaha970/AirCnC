@@ -2,8 +2,41 @@
 
 import { Box, Typography } from "@mui/material";
 import StepperComponent from "../StepperComponent/StepperComponent";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../CheckoutForm/CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
 
 const Step3 = () => {
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
+  useEffect(() => {
+    async function getStripe() {
+      try {
+        const { data } = await axios.get("/api/payment/config");
+        setStripePromise(loadStripe(data.publishableKey));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getStripe();
+  }, []);
+  useEffect(() => {
+    async function getClientSecret() {
+      try {
+        const { data } = await axios.post(
+          "/api/payment/create-payment-intent",
+          {}
+        );
+        setClientSecret(data.clientSecret);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getClientSecret();
+  }, []);
+
   return (
     <Box>
       <StepperComponent activeStep={2} />
@@ -18,14 +51,13 @@ const Step3 = () => {
         >
           Payment Section
         </Typography>
-
-        <Box
-          sx={{
-            width: "100%",
-            height: "152px",
-            border: "1px solid #707070",
-          }}
-        ></Box>
+        <Box>
+          {stripePromise && clientSecret && (
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              <CheckoutForm />
+            </Elements>
+          )}
+        </Box>
       </Box>
     </Box>
   );

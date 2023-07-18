@@ -28,3 +28,4 @@ export { default as Step3 } from "./ConfirmBookingPage/Step3/Step3";
 export { default as StepperComponent } from "./ConfirmBookingPage/StepperComponent/StepperComponent";
 export { default as PrivateRouteForBooking } from "./ConfirmBookingPage/PrivateRouteForBooking/PrivateRouteForBooking";
 export { default as BookingCard } from "./ConfirmBookingPage/BookingCard/BookingCard";
+export { default as CheckoutForm } from "./ConfirmBookingPage/CheckoutForm/CheckoutForm";
