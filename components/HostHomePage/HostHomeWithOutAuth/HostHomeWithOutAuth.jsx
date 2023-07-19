@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import { SignIn } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 const style = {
   position: "absolute",
@@ -15,6 +16,7 @@ const style = {
   p: 1,
 };
 const HostHomeWithOutAuth = () => {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -35,18 +37,33 @@ const HostHomeWithOutAuth = () => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <SignIn
-              afterSignInUrl="/host/view/profile"
-              redirectUrl="/host/view/profile"
-              path="/host/view/hosting"
-              appearance={{
-                elements: {
-                  card: {
-                    boxShadow: "none",
+            {pathname === "/your-reservation" ? (
+              <SignIn
+                afterSignInUrl="/your-reservation"
+                redirectUrl="/your-reservation"
+                path="/your-reservation"
+                appearance={{
+                  elements: {
+                    card: {
+                      boxShadow: "none",
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            ) : (
+              <SignIn
+                afterSignInUrl="/host/view/profile"
+                redirectUrl="/host/view/profile"
+                path="/host/view/hosting"
+                appearance={{
+                  elements: {
+                    card: {
+                      boxShadow: "none",
+                    },
+                  },
+                }}
+              />
+            )}
           </Box>
         </Fade>
       </Modal>
