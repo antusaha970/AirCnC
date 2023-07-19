@@ -13,7 +13,10 @@ import {
 } from "@utils/dateHelper";
 import dayjs from "dayjs";
 import { ReserveButton } from "@components/Styled/Styled";
-import { addReservationInfo } from "@redux/slices/reservationSlice";
+import {
+  addReservationInfo,
+  addTotalPayment,
+} from "@redux/slices/reservationSlice";
 import { useRouter } from "next/navigation";
 const ReserveBox = ({ placeDetails }) => {
   const {
@@ -48,6 +51,11 @@ const ReserveBox = ({ placeDetails }) => {
       departure: JSON.stringify(departure),
     };
     dispatch(addReservationInfo({ finalDate }));
+    dispatch(
+      addTotalPayment(
+        perNightFees * differenceOfDays + serviceFees + cleaningFees
+      )
+    );
     router.push("/confirm-booking/step-1");
   };
 

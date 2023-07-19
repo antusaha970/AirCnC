@@ -4,15 +4,21 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
 });
 export async function POST(req) {
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      currency: "EUR",
-      amount: 1999,
-      automatic_payment_methods: { enabled: true },
-    });
-    return NextResponse.json(
-      { clientSecret: paymentIntent.client_secret },
-      { status: 200 }
-    );
+    const payment = await req.json();
+    if (payment) {
+      console.log(Number(payment.totalPayment));
+      const paymentIntent = await stripe.paymentIntents.create({
+        currency: "USD",
+        amount: Number(payment.totalPayment),
+        automatic_payment_methods: { enabled: true },
+      });
+      return NextResponse.json(
+        { clientSecret: paymentIntent.client_secret },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json("No payment information", { status: 400 });
+    }
   } catch (error) {
     console.log(error);
     return NextResponse.json(

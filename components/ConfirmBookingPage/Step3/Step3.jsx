@@ -7,10 +7,14 @@ import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
+import { MyContentLoader } from "@components";
+import { useSelector } from "react-redux";
 
 const Step3 = () => {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
+  const totalPayment = useSelector((state) => state.reservation.totalPayment);
+
   useEffect(() => {
     async function getStripe() {
       try {
@@ -27,7 +31,7 @@ const Step3 = () => {
       try {
         const { data } = await axios.post(
           "/api/payment/create-payment-intent",
-          {}
+          JSON.stringify({ totalPayment })
         );
         setClientSecret(data.clientSecret);
       } catch (error) {
@@ -52,6 +56,7 @@ const Step3 = () => {
           Payment Section
         </Typography>
         <Box>
+          {!stripePromise && !clientSecret && <MyContentLoader />}
           {stripePromise && clientSecret && (
             <Elements stripe={stripePromise} options={{ clientSecret }}>
               <CheckoutForm />
