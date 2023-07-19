@@ -6,7 +6,6 @@ export async function POST(req) {
   try {
     const payment = await req.json();
     if (payment) {
-      console.log(Number(payment.totalPayment));
       const paymentIntent = await stripe.paymentIntents.create({
         currency: "USD",
         amount: Number(payment.totalPayment),

@@ -5,6 +5,7 @@ const initialState = {
   reservationInfo: {},
   isReserving: false,
   totalPayment: 0,
+  clientMessage: "",
 };
 
 export const reservationSlice = createSlice({
@@ -21,11 +22,18 @@ export const reservationSlice = createSlice({
     addTotalPayment: (state, action) => {
       state.totalPayment = action.payload;
     },
+    addClientMessage: (state, action) => {
+      state.clientMessage = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addReservedPlace, addReservationInfo, addTotalPayment } =
-  reservationSlice.actions;
+export const {
+  addReservedPlace,
+  addReservationInfo,
+  addTotalPayment,
+  addClientMessage,
+} = reservationSlice.actions;
 
 export default reservationSlice.reducer;

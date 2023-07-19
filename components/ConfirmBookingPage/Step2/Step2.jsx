@@ -6,9 +6,12 @@ import { useState } from "react";
 import { ReserveButton as ContinueButton } from "@components/Styled/Styled";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addClientMessage } from "@redux/slices/reservationSlice";
 
 const Step2 = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const handleMessage = (e) => {
     setMessage(e.target.value);
@@ -26,6 +29,7 @@ const Step2 = () => {
         theme: "light",
       });
     } else {
+      dispatch(addClientMessage(message));
       router.push("/confirm-booking/step-3");
     }
   };

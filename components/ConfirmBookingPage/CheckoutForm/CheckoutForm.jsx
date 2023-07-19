@@ -1,13 +1,15 @@
 "use client";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import {
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const CheckoutForm = () => {
+  const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState("");
   const stripe = useStripe();
@@ -20,32 +22,36 @@ const CheckoutForm = () => {
     }
 
     setIsProcessing(true);
-    const { error } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}`,
+        return_url: `${window.location.origin}/your-reservation`,
       },
+      redirect: "if_required",
     });
 
     if (error) {
       setMessage(error.message);
     }
     setIsProcessing(false);
+    router.push("/your-reservation");
   };
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement />
-
-      <Button
-        disabled={isProcessing}
-        variant="contained"
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
         sx={{
           mt: 2,
         }}
-        type="submit"
       >
-        {isProcessing ? "Processing ... " : "Pay now"}
-      </Button>
+        <Button disabled={isProcessing} variant="contained" type="submit">
+          {isProcessing ? "Processing ... " : "Pay now"}
+        </Button>
+        <Button variant="contained">Pay Later</Button>
+      </Stack>
 
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
