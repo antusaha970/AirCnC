@@ -39,6 +39,41 @@ const ReservationContainer = () => {
       }
     }
   }, [user]);
+  const handleCancelReservation = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/reservation/get-reservation/${id}`
+      );
+      if (data.result) {
+        const newReservationList = clientReservations.filter(
+          (r) => r._id !== id
+        );
+        setClientReservations(newReservationList);
+        toast.success(`Reservation deleted successfully`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(`${error.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
   return (
     <Container component="section" maxWidth="lg">
       <ToastContainer />
@@ -65,6 +100,8 @@ const ReservationContainer = () => {
               place={reservation.placeDetails}
               isPaid={reservation.isPaid}
               reservationDate={reservation.reservationDate}
+              handleCancelReservation={handleCancelReservation}
+              cancelReservationId={reservation._id}
             />
           ))}
           {!isLoading && clientReservations.length === 0 && (

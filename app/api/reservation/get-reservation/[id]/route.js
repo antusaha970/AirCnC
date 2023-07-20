@@ -13,3 +13,15 @@ export async function GET(req, { params }) {
     return NextResponse.json({ error }, { status: 500 });
   }
 }
+
+export async function DELETE(req, { params }) {
+  try {
+    await connectToDB();
+    const { id } = params;
+    await Reservation.findByIdAndDelete(`${id}`);
+    return NextResponse.json({ result: true }, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ result: false }, { status: 500 });
+  }
+}

@@ -14,8 +14,16 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import "./PlaceCard.css";
 import Link from "next/link";
+import { useState } from "react";
 
-const PlaceCard = ({ place, handleDelete, isPaid, reservationDate }) => {
+const PlaceCard = ({
+  place,
+  handleDelete,
+  isPaid,
+  reservationDate,
+  handleCancelReservation,
+  cancelReservationId,
+}) => {
   const {
     placeTitle,
     images,
@@ -23,7 +31,7 @@ const PlaceCard = ({ place, handleDelete, isPaid, reservationDate }) => {
     fees: { perNightFees },
   } = place?.placeDetails;
   const pathName = usePathname();
-
+  const [operation, setOperation] = useState(false);
   return (
     <Card
       sx={{ maxWidth: { sm: "300px", md: "220px" }, boxShadow: "none" }}
@@ -138,8 +146,18 @@ const PlaceCard = ({ place, handleDelete, isPaid, reservationDate }) => {
           </Button>
         )}
         {pathName === "/your-reservation" && (
-          <Button color="danger" variant="contained">
-            Cancel Reservation
+          <Button
+            color="danger"
+            variant="contained"
+            disabled={operation}
+            onClick={() => {
+              if (handleCancelReservation) {
+                handleCancelReservation(cancelReservationId);
+                setOperation(true);
+              }
+            }}
+          >
+            {operation ? "Processing..." : "Cancel Reservation"}
           </Button>
         )}
       </CardActions>
