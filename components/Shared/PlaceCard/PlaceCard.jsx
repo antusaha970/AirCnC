@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Box,
   Button,
   Card,
   CardActionArea,
@@ -14,7 +15,7 @@ import { usePathname } from "next/navigation";
 import "./PlaceCard.css";
 import Link from "next/link";
 
-const PlaceCard = ({ place, handleDelete }) => {
+const PlaceCard = ({ place, handleDelete, isPaid, reservationDate }) => {
   const {
     placeTitle,
     images,
@@ -79,6 +80,51 @@ const PlaceCard = ({ place, handleDelete }) => {
               fontSize: "18px",
             }}
           />
+          {pathName === "/your-reservation" &&
+            reservationDate !== undefined && (
+              <Box
+                sx={{
+                  mt: 1,
+                }}
+              >
+                <Typography
+                  component="p"
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                  }}
+                >
+                  Arrival&nbsp;:&nbsp;&nbsp;
+                  {new Date(
+                    JSON.parse(reservationDate.arrival)
+                  ).toLocaleDateString()}
+                </Typography>
+                <Typography
+                  component="p"
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                  }}
+                >
+                  Departure&nbsp;:&nbsp;&nbsp;
+                  {new Date(
+                    JSON.parse(reservationDate.departure)
+                  ).toLocaleDateString()}
+                </Typography>
+              </Box>
+            )}
+          {pathName === "/your-reservation" && isPaid !== undefined && (
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "primary",
+                pt: 1,
+              }}
+              component="p"
+            >
+              Payment&nbsp;:&nbsp; {isPaid ? "Paid" : "Unpaid"}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -89,6 +135,11 @@ const PlaceCard = ({ place, handleDelete }) => {
             onClick={() => handleDelete && handleDelete(place._id)}
           >
             Delete
+          </Button>
+        )}
+        {pathName === "/your-reservation" && (
+          <Button color="danger" variant="contained">
+            Cancel Reservation
           </Button>
         )}
       </CardActions>

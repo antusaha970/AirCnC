@@ -60,7 +60,12 @@ const ReservationContainer = () => {
         >
           {isLoading && <MyContentLoader />}
           {clientReservations?.map((reservation) => (
-            <PlaceCard key={reservation._id} place={reservation.placeDetails} />
+            <PlaceCard
+              key={reservation._id}
+              place={reservation.placeDetails}
+              isPaid={reservation.isPaid}
+              reservationDate={reservation.reservationDate}
+            />
           ))}
           {!isLoading && clientReservations.length === 0 && (
             <Typography
