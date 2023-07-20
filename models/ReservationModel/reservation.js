@@ -1,4 +1,3 @@
-import { placeDetailsSchema } from "@models/PlacesModel/placesHelperSchemas";
 import { Schema, model, models } from "mongoose";
 
 const reservationSchema = new Schema({
@@ -7,7 +6,7 @@ const reservationSchema = new Schema({
     require: [true, "Client Id is required"],
   },
   placeDetails: {
-    type: placeDetailsSchema,
+    type: Object,
     require: [true, "Place details is required"],
   },
   clientMessage: {
