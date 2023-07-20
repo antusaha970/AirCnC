@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import {
   PaymentElement,
   useElements,
@@ -52,7 +52,6 @@ const CheckoutForm = () => {
         },
         isPaid: true,
       };
-      console.log(reservationDataForDb);
       const { data } = await axios.post("/api/reservation/make-reservation", {
         reservationDataForDb,
       });
@@ -68,6 +67,36 @@ const CheckoutForm = () => {
       setIsProcessing(false);
     }
   };
+
+  const handlePayLater = async () => {
+    try {
+      setIsProcessing(true);
+      const reservationDataForDb = {
+        placeDetails: reservation.reservedPlace,
+        clientId: user.id,
+        clientMessage: reservation.clientMessage,
+        reservationDate: {
+          arrival: reservation.reservationInfo.arrival,
+          departure: reservation.reservationInfo.departure,
+        },
+        isPaid: false,
+      };
+      const { data } = await axios.post("/api/reservation/make-reservation", {
+        reservationDataForDb,
+      });
+      if (data.success) {
+        router.push("/your-reservation");
+      } else {
+        alert("Something went wrong");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement />
@@ -80,13 +109,30 @@ const CheckoutForm = () => {
         }}
       >
         <Button disabled={isProcessing} variant="contained" type="submit">
-          {isProcessing ? "Processing ... " : "Pay now"}
+          {isProcessing ? "Processing ... " : "Pay Now"}
         </Button>
-        <Button variant="contained">Pay Later</Button>
+        <Button
+          variant="contained"
+          onClick={handlePayLater}
+          disabled={isProcessing}
+        >
+          {isProcessing ? "Processing ... " : "Pay Later"}
+        </Button>
       </Stack>
 
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
+      <Typography
+        variant="small"
+        component="p"
+        sx={{
+          pt: 6,
+          color: "gray",
+          textAlign: "center",
+        }}
+      >
+        If you don&apos;t have credit card please choose pay later
+      </Typography>
     </form>
   );
 };
