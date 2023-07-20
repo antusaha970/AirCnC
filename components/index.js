@@ -30,3 +30,4 @@ export { default as PrivateRouteForBooking } from "./ConfirmBookingPage/PrivateR
 export { default as BookingCard } from "./ConfirmBookingPage/BookingCard/BookingCard";
 export { default as CheckoutForm } from "./ConfirmBookingPage/CheckoutForm/CheckoutForm";
 export { default as ReservationContainer } from "./ReservationPage/ReservationContainer/ReservationContainer";
+export { default as HelpBox } from "./HelpPage/HelpBox/HelpBox";

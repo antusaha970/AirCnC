@@ -71,7 +71,7 @@ const NavBar = () => {
               <Link href="/your-reservation" className="nav-item">
                 See your reservations
               </Link>
-              <Link href="/" className="nav-item">
+              <Link href="/help" className="nav-item">
                 Help
               </Link>
               {!isSignedIn && (
@@ -139,7 +139,7 @@ const NavBar = () => {
                 <Link href="/your-reservation" className="nav-item">
                   See your reservations
                 </Link>
-                <Link href="/" className="nav-item">
+                <Link href="/help" className="nav-item">
                   Help
                 </Link>
                 {!isSignedIn && (
