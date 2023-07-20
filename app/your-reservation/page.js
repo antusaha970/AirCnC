@@ -1,8 +1,14 @@
+import { ReservationContainer } from "@components";
+
 export const metadata = {
   title: "AirCnC || Your reservation",
 };
 const YourReservation = () => {
-  return <div>YourReservation</div>;
+  return (
+    <>
+      <ReservationContainer />
+    </>
+  );
 };
 
 export default YourReservation;

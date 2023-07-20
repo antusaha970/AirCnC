@@ -29,3 +29,4 @@ export { default as StepperComponent } from "./ConfirmBookingPage/StepperCompone
 export { default as PrivateRouteForBooking } from "./ConfirmBookingPage/PrivateRouteForBooking/PrivateRouteForBooking";
 export { default as BookingCard } from "./ConfirmBookingPage/BookingCard/BookingCard";
 export { default as CheckoutForm } from "./ConfirmBookingPage/CheckoutForm/CheckoutForm";
+export { default as ReservationContainer } from "./ReservationPage/ReservationContainer/ReservationContainer";
