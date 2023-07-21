@@ -14,7 +14,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import "./PlaceCard.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PlaceCard = ({
   place,
@@ -23,6 +23,7 @@ const PlaceCard = ({
   reservationDate,
   handleCancelReservation,
   cancelReservationId,
+  clientMessage,
 }) => {
   const {
     placeTitle,
@@ -32,6 +33,19 @@ const PlaceCard = ({
   } = place?.placeDetails;
   const pathName = usePathname();
   const [operation, setOperation] = useState(false);
+  const [showCancelButton, setShowCancelButton] = useState(false);
+  const [showPaymentInfo, setShowPaymentInfo] = useState(false);
+  const [showDateInfo, setShowDateInfo] = useState(false);
+  useEffect(() => {
+    if (
+      pathName === "/your-reservation" ||
+      pathName === "/host/view/reserved"
+    ) {
+      setShowCancelButton(true);
+      setShowPaymentInfo(true);
+      setShowDateInfo(true);
+    }
+  }, [pathName]);
   return (
     <Card
       sx={{ maxWidth: { sm: "300px", md: "220px" }, boxShadow: "none" }}
@@ -88,40 +102,39 @@ const PlaceCard = ({
               fontSize: "18px",
             }}
           />
-          {pathName === "/your-reservation" &&
-            reservationDate !== undefined && (
-              <Box
+          {showDateInfo && reservationDate !== undefined && (
+            <Box
+              sx={{
+                mt: 1,
+              }}
+            >
+              <Typography
+                component="p"
                 sx={{
-                  mt: 1,
+                  fontSize: "16px",
+                  fontWeight: "600",
                 }}
               >
-                <Typography
-                  component="p"
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                  }}
-                >
-                  Arrival&nbsp;:&nbsp;&nbsp;
-                  {new Date(
-                    JSON.parse(reservationDate.arrival)
-                  ).toLocaleDateString()}
-                </Typography>
-                <Typography
-                  component="p"
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                  }}
-                >
-                  Departure&nbsp;:&nbsp;&nbsp;
-                  {new Date(
-                    JSON.parse(reservationDate.departure)
-                  ).toLocaleDateString()}
-                </Typography>
-              </Box>
-            )}
-          {pathName === "/your-reservation" && isPaid !== undefined && (
+                Arrival&nbsp;:&nbsp;&nbsp;
+                {new Date(
+                  JSON.parse(reservationDate.arrival)
+                ).toLocaleDateString()}
+              </Typography>
+              <Typography
+                component="p"
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                }}
+              >
+                Departure&nbsp;:&nbsp;&nbsp;
+                {new Date(
+                  JSON.parse(reservationDate.departure)
+                ).toLocaleDateString()}
+              </Typography>
+            </Box>
+          )}
+          {showPaymentInfo && isPaid !== undefined && (
             <Typography
               sx={{
                 fontSize: "14px",
@@ -131,6 +144,17 @@ const PlaceCard = ({
               component="p"
             >
               Payment&nbsp;:&nbsp; {isPaid ? "Paid" : "Unpaid"}
+            </Typography>
+          )}
+          {pathName === "/host/view/reserved" && (
+            <Typography
+              component="p"
+              sx={{
+                fontSize: "16px",
+                pt: 1,
+              }}
+            >
+              <b>Client-Message&nbsp;:</b> &nbsp; {clientMessage}
             </Typography>
           )}
         </CardContent>
@@ -145,7 +169,7 @@ const PlaceCard = ({
             Delete
           </Button>
         )}
-        {pathName === "/your-reservation" && (
+        {showCancelButton && (
           <Button
             color="danger"
             variant="contained"

@@ -2,15 +2,15 @@
 
 import { useUser } from "@clerk/nextjs";
 import { MyContentLoader, PlaceCard } from "@components";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import Aos from "aos";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
-const ReservationContainer = () => {
+const ViewReserved = () => {
   const { user } = useUser();
-  const [clientReservations, setClientReservations] = useState([]);
+  const [ownerReserved, setOwnerReserved] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     Aos.init({ once: true });
@@ -19,9 +19,9 @@ const ReservationContainer = () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get(
-          `/api/reservation/get-reservation/${user.id}?operation=client`
+          `/api/reservation/get-reservation/${user.id}?operation=owner`
         );
-        setClientReservations(data.clientReservation);
+        setOwnerReserved(data.ownerReservation);
       } catch (error) {
         console.error(error);
         toast.error(`${error.message}`, {
@@ -45,10 +45,8 @@ const ReservationContainer = () => {
         `/api/reservation/get-reservation/${id}`
       );
       if (data.result) {
-        const newReservationList = clientReservations.filter(
-          (r) => r._id !== id
-        );
-        setClientReservations(newReservationList);
+        const newReservationList = ownerReserved.filter((r) => r._id !== id);
+        setOwnerReserved(newReservationList);
         toast.success(`Reservation deleted successfully`, {
           position: "top-right",
           autoClose: 5000,
@@ -75,51 +73,49 @@ const ReservationContainer = () => {
     }
   };
   return (
-    <Container component="section" maxWidth="lg">
+    <Box
+      sx={{
+        mx: 2,
+      }}
+    >
       <ToastContainer />
-      <Box
+      <Stack
+        direction={{ md: "row", sm: "column" }}
+        justifyContent={{ sm: "center", md: "start" }}
+        alignItems="start"
+        gap={2}
         sx={{
-          minHeight: "100vh",
-          width: "100%",
-          mt: 5,
+          flexWrap: "wrap",
+          mt: 3,
         }}
       >
-        <Stack
-          direction={{ md: "row", sm: "column" }}
-          justifyContent={{ sm: "center", md: "start" }}
-          alignItems="start"
-          gap={2}
-          sx={{
-            flexWrap: "wrap",
-          }}
-        >
-          {isLoading && <MyContentLoader />}
-          {clientReservations?.map((reservation) => (
-            <PlaceCard
-              key={reservation._id}
-              place={reservation.placeDetails}
-              isPaid={reservation.isPaid}
-              reservationDate={reservation.reservationDate}
-              handleCancelReservation={handleCancelReservation}
-              cancelReservationId={reservation._id}
-            />
-          ))}
-          {!isLoading && clientReservations.length === 0 && (
-            <Typography
-              variant="h3"
-              sx={{
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-              component="h3"
-            >
-              You have no reservation
-            </Typography>
-          )}
-        </Stack>
-      </Box>
-    </Container>
+        {isLoading && <MyContentLoader />}
+        {ownerReserved?.map((reservation) => (
+          <PlaceCard
+            key={reservation._id}
+            place={reservation.placeDetails}
+            isPaid={reservation.isPaid}
+            reservationDate={reservation.reservationDate}
+            cancelReservationId={reservation._id}
+            clientMessage={reservation.clientMessage}
+            handleCancelReservation={handleCancelReservation}
+          />
+        ))}
+        {!isLoading && ownerReserved.length === 0 && (
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: "bold",
+              textAlign: "center",
+            }}
+            component="h3"
+          >
+            You have no reservation
+          </Typography>
+        )}
+      </Stack>
+    </Box>
   );
 };
 
-export default ReservationContainer;
+export default ViewReserved;

@@ -11,6 +11,7 @@ export { default as PlaceCard } from "./Shared/PlaceCard/PlaceCard";
 export { default as HostHomeWithOutAuth } from "./HostHomePage/HostHomeWithOutAuth/HostHomeWithOutAuth";
 export { default as HostHomeDashBoard } from "./HostHomePage/HostHomeDashBoard/HostHomeDashBoard";
 export { default as SideBar } from "./HostHomePage/SideBar/SideBar";
+export { default as ViewReserved } from "./HostHomePage/ViewReserved/ViewReserved";
 export { default as HostHomeTitle } from "./HostHomePage/HostHomeTitle/HostHomeTitle";
 export { default as HostHomeForm } from "./HostHomePage/HostHomeForm/HostHomeForm";
 export { default as HostedHomeList } from "./HostHomePage/HostedHomeList/HostedHomeList";

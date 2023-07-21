@@ -6,8 +6,18 @@ export async function GET(req, { params }) {
   try {
     await connectToDB();
     const { id } = params;
-    const clientReservation = await Reservation.find({ clientId: `${id}` });
-    return NextResponse.json({ clientReservation }, { status: 200 });
+    const { searchParams } = new URL(req.url);
+    const operation = searchParams.get("operation");
+    if (operation === "client") {
+      const clientReservation = await Reservation.find({ clientId: `${id}` });
+      return NextResponse.json({ clientReservation }, { status: 200 });
+    } else if (operation === "owner") {
+      const query = {
+        "placeDetails.userId": `${id}`,
+      };
+      const ownerReservation = await Reservation.find(query);
+      return NextResponse.json({ ownerReservation }, { status: 200 });
+    }
   } catch (error) {
     console.log(error);
     return NextResponse.json({ error }, { status: 500 });

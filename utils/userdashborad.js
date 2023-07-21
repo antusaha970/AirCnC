@@ -11,6 +11,10 @@ const dashboardMenu = [
     title: "Your places",
     link: "/host/view/your-places",
   },
+  {
+    title: "Reservation",
+    link: "/host/view/reserved",
+  },
 ];
 
 export { dashboardMenu };
