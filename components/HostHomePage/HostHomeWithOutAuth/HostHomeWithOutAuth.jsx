@@ -102,8 +102,10 @@ const HostHomeWithOutAuth = () => {
           fontWeight: "bold",
         }}
       >
-        Please <Button onClick={handleOpen}>Sign In</Button> for hosting your
-        home
+        Please <Button onClick={handleOpen}>Sign In</Button> for{" "}
+        {pathname === "/your-reservation"
+          ? "View Your reservation"
+          : `hosting your home`}
       </Typography>
     </Container>
   );

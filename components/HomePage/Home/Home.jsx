@@ -68,14 +68,15 @@ const Home = () => {
             >
               Homes
             </Typography>
-            <Typography
+            {/* <Typography
               sx={{
                 display: "flex",
                 alignItems: "center",
               }}
+              component="p"
             >
               See all <NavigateNextIcon />
-            </Typography>
+            </Typography> */}
           </Stack>
           <Stack
             direction={{ md: "row", sm: "column" }}
